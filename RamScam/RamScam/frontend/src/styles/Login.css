@@ -1,0 +1,114 @@
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgb(30, 30, 30);  
+    
+}
+
+h1 {
+    margin-bottom: 40px;
+    color: white;
+    font-size: 32px;
+    font-weight: 500;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 400px;
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid rgb(124, 53, 15); 
+  background-color: rgb(40, 40, 40);
+  
+}
+
+.ust-row {
+    color: black;
+    background-color: transparent;
+    
+}
+
+input {
+    border: 1px solid rgb(124, 53, 15);
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #191919;
+    padding: 10px;
+}
+
+button {
+    box-sizing: border-box;
+}
+
+.alt-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    flex: 1;
+    gap: 20px;
+}
+
+
+label {
+    display: block;
+    text-align: left;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#forgot-password {
+    border: 1px solid rgb(124, 53, 15);
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #191919;
+    color: rgb(194, 84, 25);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#sign-in {
+    border: 1px solid rgb(124, 53, 15);
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: rgb(194, 84, 25);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Exo 2', sans-serif;
+}
+
+a {
+    color: #fc7f3c;
+    text-decoration: none;
+}
