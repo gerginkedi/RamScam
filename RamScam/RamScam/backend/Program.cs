@@ -1,4 +1,4 @@
-namespace RamScam
+namespace RamScam.backend
 {
     public class Program
     {
