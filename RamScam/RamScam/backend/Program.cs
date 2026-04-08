@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RamScam.backend.DAL;
+using RamScam.backend.DAL.Concrete;
+using RamScam.backend.DAL.Interfaces;
 
 namespace RamScam.backend
 {
@@ -21,6 +23,10 @@ namespace RamScam.backend
 
             // Add services to the container.
             builder.Services.AddControllers();  
+            builder.Services.AddScoped<IGamesRepository, GamesRepository>();
+
+
+
 
             var app = builder.Build();
 

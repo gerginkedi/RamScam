@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RamScam.backend.DAL.Entities;
-
 namespace RamScam.backend.DAL
 {
     public class AppDbContext : DbContext

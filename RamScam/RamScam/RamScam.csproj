@@ -73,7 +73,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="backend\DAL\Concrete\" />
     <Folder Include="frontend\src\" />
   </ItemGroup>
 
