@@ -9,15 +9,15 @@ function Register() {
         <form className='ust-row'>
             <label>E-posta Adresi</label>
             <div>
-                <input type='text' placeholder='ornek@gmail.com' autoCapitalize='off' autoCorrect='off'/>
+                <input type='email' placeholder='ornek@gmail.com' autoCapitalize='off' autoCorrect='off'/>
             </div>
             <label>Şifre</label>
             <div>   
-                <input type='text' placeholder='••••••••' autoCapitalize='off' autoCorrect='off'/>
+                <input type='password' placeholder='••••••••' autoCapitalize='off' autoCorrect='off'/>
             </div>
             <label>Şifre Tekrar</label>
             <div>   
-                <input type='text' placeholder='' autoCapitalize='off' autoCorrect='off'/>
+                <input type='password' placeholder='••••••••' autoCapitalize='off' autoCorrect='off'/>
             </div>            
         </form>
         <div className="alt-row">
