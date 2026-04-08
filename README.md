@@ -35,6 +35,6 @@ Esnekliği ve eğlenceyi artırmak için her run bir **seed** değerine sahip ol
 ![Database diagram](DbScheme.png)
 
 ### Onemsiz Gorseller
-![Database diagram](wow.jpg)
-![Database diagram](floppa.jpg)
-![Database diagram](292578.jpg)
+![wow](wow.jpg)
+![floppa](floppa.jpg)
+![tool](292578.jpg)
