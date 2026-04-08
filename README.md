@@ -1,43 +1,35 @@
-#RamScam
+# RamScam
 
+**run** - kullanıcıcı çiplerini almak için RAM miktarını girdiği andan batana kadar olan sürece bir "run" denir.
 
-run -kullanicnin cip almak icin ram girdigi andan batana kadar olan araya bir run denir-
+Kullanıcı sisteme mail ve şifresi ile girer. Şifre kodlanmış (hashed) şekilde tutulacak, isteğe bağlı olarak mail de kodlanmış şekilde saklanabilir.
 
-kullanici sisteme mail ve sifresi ile girer.
-sifre codded sekilde tutulcak, belki mail de codded sekilde tutulur.
-kullanici sisteme girdiginde kullanicidan total raminin girilmesi istenicek. daha sonra bu oyun icin kullanmak istedigi rami giricek.
-kullanicniin cip olarak kullanacagi ram miktarini aninda js scripti ile bosa doldurucak program. bu sekilde kullanicnin hile yapip yapmadigini ogrenicek program
-ana menude oynanabilecek olan oyunlari gorucek. bunlardan herhangi birine girdigi zaman kisaca oyun anlatilip, daha sonrasinda oyuna gecilecek.
-kullanici hesabini ilk actiginda 0 olan oyun statlari oynadigi oyuna gore articak, 10 tane coin flip oynadiysa cf columni 10 olcak gibi gibi
-ayrica kullanicinin winrate i de tutulacak her oyun icin. ornegin 20 el blackjack oynamis, 12 tanesini kazanmis 12/20(win/oynanan oyun sayisi) 
-yaptigimizda winratei ortaya cikar.
-oyunlardan kazanacagi para ise sabit olmayacak. winratei ne kadar yuksekse o kadar cok kazanicak buna gore bir algoritma gelistirilecek.
-	loldeki mmr sistemine benzetilebilir, bu mmr olayi oyuncu battiginda sifirlanacak(runin sonunda). her oyunun mmr i etkileme sekli farkli olacak.
-kullanici kazandigi paralari ise ozel yetenekleri olan esyalar satin alarak harcayacak. bu da kullaniciya rogue like bir deneyim kazandirip oyunda tutacak.
+### Başlangıç ve Mekanik
+Kullanıcı sisteme girdiğinde toplam RAM miktarını girmesi istenecek. Daha sonra bu oyun için feda etmek istediği (chip olarak kullanacağı) RAM miktarını girecek. Kullanıcının çip olarak kullanacağı RAM miktarını anında bir JavaScript scripti ile bellekte dolduracak bir program olacak; bu sayede kullanıcının hile yapıp yapmadığı kontrol edilecek.
 
-randomlugu, oyununun esnekligini ve eglenceyi arttirmak icin her bir runin seedi olacak.
+### Oyun ve İstatistikler
+Ana menüde oynanabilecek oyunlar görülecek. Herhangi birine girildiğinde oyun kısaca anlatılıp başlanacak.
+* **İstatistik Takibi:** Kullanıcı hesabı ilk açıldığında 0 olan statlar, oynanan oyuna göre artacak (Örn: 10 kere Coin Flip oynandıysa CF sütunu 10 olacak).
+* **Winrate:** Her oyun için galibiyet oranı tutulacak (Örn: 20 el Blackjack, 12 galibiyet = 12/20 winrate).
+* **MMR Sistemi:** Kazanılacak para sabit olmayacak. Winrate ne kadar yüksekse kazanç o kadar artacak (LoL MMR sistemine benzer). Bu MMR, oyuncu battığında (run sonunda) sıfırlanacak.
+* **Rogue-like Deneyimi:** Kazanılan paralarla özel yetenekli eşyalar satın alınabilecek.
 
-ozet olarak databasede tutulacak degerler, global degerler
-	mail,
-	password,
-	ornegin a b c oyunlari olsun
-		giren insanlarin a oyununu kac kere oynadigi,
-		a oyununda kac defa kazandiklari,
-		a oyununda kac defa kaybettikleri,
-		a oyununda varsa kac defa 0 kazanc ile ciktiklari(berabere denebilir)
-		b ve c oyunlari icin de bunlar tutulacak.
-		
-		
+### Teknik Detaylar
+Esnekliği ve eğlenceyi artırmak için her run bir **seed** değerine sahip olacak.
 
-	her run icin database e gonderilecek degerler
-	a oyununa giris yaptigi anda oyuncunun stati 1 articak. 
-	(a oyunun tum kullanicilar tarafindan kac defa oynandigi istatistiginin butun kullanicilarin a oyununu oynama sayilarini toplayara elde edicez)
-	b ve c oyunlari icin de bunlar yapilacak.
-	kazanirsa databasedeki a oyununu k kullanicisinin kazanma sayisi 1 articak
-	ayni sekilde kayip ve 0 kazanc durumlarinda da bunlar uygulanacak.
-	
-	oyunla alakali surekli degisip, surekli artacak seyler sitenin mobilligi acisindan browser tarafli tutulacak bu sekilde frontendci amini karislamicak
-		
-Database Diagram as u can see lol
+#### Veritabanında Tutulacak Global Değerler:
+* Mail ve Şifre
+* Oyun bazlı istatistikler (A, B, C oyunları için):
+    * Oynanma sayısı
+    * Kazanma/Kaybetme sayısı
+    * Beraberlik (0 kazanç) sayısı
 
+#### Run Bazlı İşlemler:
+* Oyuna girildiği anda ilgili oyunun oynanma sayısı 1 artacak.
+* Sonuca göre (kazanç/kayıp) veritabanındaki kullanıcı statları güncellenecek.
+* Sitenin hızı ve mobil uyumluluğu için sürekli değişen veriler browser tarafında (client-side) tutulacak, böylece frontend geliştiricisi zorlanmayacak.
+
+---
+
+### Database Diagram
 ![Database diagram](DbScheme.png)
