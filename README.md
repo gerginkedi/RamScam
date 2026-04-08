@@ -17,7 +17,7 @@ kullanici kazandigi paralari ise ozel yetenekleri olan esyalar satin alarak harc
 
 randomlugu, oyununun esnekligini ve eglenceyi arttirmak icin her bir runin seedi olacak.
 
-ozet olarak databasede tutulacak degerler, global degerler:
+ozet olarak databasede tutulacak degerler, global degerler
 	mail,
 	password,
 	ornegin a b c oyunlari olsun
@@ -29,7 +29,7 @@ ozet olarak databasede tutulacak degerler, global degerler:
 		
 		
 
-	her run icin database e gonderilecek degerler:
+	her run icin database e gonderilecek degerler
 	a oyununa giris yaptigi anda oyuncunun stati 1 articak. 
 	(a oyunun tum kullanicilar tarafindan kac defa oynandigi istatistiginin butun kullanicilarin a oyununu oynama sayilarini toplayara elde edicez)
 	b ve c oyunlari icin de bunlar yapilacak.
@@ -38,5 +38,6 @@ ozet olarak databasede tutulacak degerler, global degerler:
 	
 	oyunla alakali surekli degisip, surekli artacak seyler sitenin mobilligi acisindan browser tarafli tutulacak bu sekilde frontendci amini karislamicak
 		
+Database Diagram as u can see lol
 
 ![Database diagram](DbScheme.png)
