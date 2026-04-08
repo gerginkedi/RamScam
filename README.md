@@ -1,4 +1,6 @@
 #RamScam
+
+
 run -kullanicnin cip almak icin ram girdigi andan batana kadar olan araya bir run denir-
 
 kullanici sisteme mail ve sifresi ile girer.
@@ -28,13 +30,13 @@ ozet olarak databasede tutulacak degerler, global degerler:
 		
 
 	her run icin database e gonderilecek degerler:
-		a oyununa giris yaptigi anda oyuncunun stati 1 articak. 
-		(a oyunun tum kullanicilar tarafindan kac defa oynandigi istatistiginin butun kullanicilarin a oyununu oynama sayilarini toplayara elde edicez)
-		b ve c oyunlari icin de bunlar yapilacak.
-		kazanirsa databasedeki a oyununu k kullanicisinin kazanma sayisi 1 articak
-		ayni sekilde kayip ve 0 kazanc durumlarinda da bunlar uygulanacak.
-		
-		oyunla alakali surekli degisip, surekli artacak seyler sitenin mobilligi acisindan browser tarafli tutulacak bu sekilde frontendci amini karislamicak
+	a oyununa giris yaptigi anda oyuncunun stati 1 articak. 
+	(a oyunun tum kullanicilar tarafindan kac defa oynandigi istatistiginin butun kullanicilarin a oyununu oynama sayilarini toplayara elde edicez)
+	b ve c oyunlari icin de bunlar yapilacak.
+	kazanirsa databasedeki a oyununu k kullanicisinin kazanma sayisi 1 articak
+	ayni sekilde kayip ve 0 kazanc durumlarinda da bunlar uygulanacak.
+	
+	oyunla alakali surekli degisip, surekli artacak seyler sitenin mobilligi acisindan browser tarafli tutulacak bu sekilde frontendci amini karislamicak
 		
 
-![Database diagram](C:\Users\segad\OneDrive\Masaüstü\RamScam\DbScheme.png)
+![Database diagram](DbScheme.png)
