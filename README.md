@@ -32,11 +32,11 @@ Esnekliği ve eğlenceyi artırmak için her run bir **seed** değerine sahip ol
 ---
 
 ### Gorseller
-![wow](gibibi.jpg)
-![floppa](floppa.jpg)
-![tool](292578.jpg)
+![wow](Images\292578.jpg)
+![floppa](Images\floppa.jpg)
+![tool](Images\292578.jpg)
 
 ### Database Diagram
-![Database diagram](DbScheme.png)
+![Database diagram](Images\DbScheme.png)
 
 
