@@ -73,6 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="backend\BusinessLogic\Models\Results\" />
     <Folder Include="frontend\src\" />
   </ItemGroup>
 

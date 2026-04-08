@@ -22,8 +22,15 @@ namespace RamScam.backend
             });
 
             // Add services to the container.
-            builder.Services.AddControllers();  
+            #region DI kayitlari
+            builder.Services.AddControllers();
+            builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
+            builder.Services.AddScoped<IGlobalStatsRepository, GlobalStatsRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserStatsRepository, UserStatsRepository>();
+            #endregion
+
 
 
 
@@ -39,9 +46,7 @@ namespace RamScam.backend
 
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             
