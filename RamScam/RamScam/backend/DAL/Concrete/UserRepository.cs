@@ -14,21 +14,13 @@ namespace RamScam.backend.DAL.Concrete
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            try
-            {
+            
                 User? user = await _context.Users.FirstOrDefaultAsync(u => u.EMail == email);
                 if (user != null)
                     return user;
 
                 else
-                    throw new Exception("User not found");
-            }
-
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            
+                    return null;
         }
     }
 }

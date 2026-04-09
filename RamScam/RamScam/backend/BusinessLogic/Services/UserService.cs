@@ -23,6 +23,17 @@ namespace RamScam.backend.BusinessLogic.Services
                 EMail = registerDTO.Email,
                 HashedPassword = await _passwordHasher.HashAsync(registerDTO.RawPassword)
             };
+            User isUsersEmailExist = await _userRepository.GetByEmailAsync(registerDTO.Email);
+            if (isUsersEmailExist != null)
+            {
+                return new RegisterResult()
+                {
+                    IsSuccessed = false,
+                    Message = "This email is already registered."
+                };
+            }
+
+
             try
             {
                 await _userRepository.CreateAsync(userToRegister);
