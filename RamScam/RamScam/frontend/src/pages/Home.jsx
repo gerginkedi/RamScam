@@ -1,13 +1,14 @@
-import '../styles/Home.css';
 import '../styles/layout.css';
-import '../styles/index.css';
+import Layout from '../components/layout';
 
 
 function Home() {
     return (
-        <div>
-            <h1>Home</h1>
-        </div>
+        <Layout>
+            <div className="home-container">
+                <h1>Home Page</h1>
+            </div>
+        </Layout>
     )
 }
 
