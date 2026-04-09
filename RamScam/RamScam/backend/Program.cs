@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using RamScam.backend.DAL;
 using RamScam.backend.DAL.Concrete;
 using RamScam.backend.DAL.Interfaces;
+using RamScam.backend.BusinessLogic.Interfaces;
+using RamScam.backend.BusinessLogic.Services;
 
 namespace RamScam.backend
 {
@@ -21,6 +23,8 @@ namespace RamScam.backend
 
             });
 
+
+
             // Add services to the container.
             #region DI kayitlari
             builder.Services.AddControllers();
@@ -30,9 +34,6 @@ namespace RamScam.backend
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserStatsRepository, UserStatsRepository>();
             #endregion
-
-
-
 
 
             var app = builder.Build();
