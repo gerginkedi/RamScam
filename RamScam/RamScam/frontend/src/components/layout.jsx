@@ -44,9 +44,6 @@ function Layout({ children }) {
                         <a href>Cansız Destek</a>
                         <a href>Ayarlar</a>
                     </div>
-
-
-                    
                 </div>
             </div>
             <div className="main-content">
