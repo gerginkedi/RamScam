@@ -14,5 +14,6 @@ namespace RamScam.backend.DAL.Entities
         public int WinCount { get; set; }
         public int LoseCount{ get; set; }
         public int DrawCount { get; set; }
+        public int TotalPlayCount { get; set; } 
     }
 }
