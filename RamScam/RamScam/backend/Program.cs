@@ -4,6 +4,8 @@ using RamScam.backend.DAL.Concrete;
 using RamScam.backend.DAL.Interfaces;
 using RamScam.backend.BusinessLogic.Interfaces;
 using RamScam.backend.BusinessLogic.Services;
+using RamScam.backend.BusinessLogic.Models.DTOs;
+using System.Reflection.Metadata.Ecma335;
 
 namespace RamScam.backend
 {
@@ -33,6 +35,7 @@ namespace RamScam.backend
             builder.Services.AddScoped<IGlobalStatsRepository, GlobalStatsRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserStatsRepository, UserStatsRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
             #endregion
 
 
@@ -50,9 +53,49 @@ namespace RamScam.backend
             app.UseRouting();
             app.UseAuthorization();
 
+            app.MapGet("/api/test", () =>
+            {
+                return Results.Ok("Api çalışıyor");
+            });
+
+            app.MapGet("/api/home", () => 
+            {
+                // Home için genel bilgiler dönebilirsin
+                return Results.Ok("Hoş geldiniz");
+            });
+
             
+            app.MapPost("/api/register", async (RegisterDTO request, IUserService userService) => 
+            {
+                var result = await userService.RegisterAsync(request);
+
+                if (result.IsSuccessed==true) 
+                {
+                    return Results.Ok(result);
+                }
+
+                return Results.BadRequest(result);
+            });
+
+            app.MapPost("/api/login", async (LoginRequest request, IUserService userService) => 
+            {
+                // LoginAsync metodu email ve password bekliyor
+                var result = await userService.LoginAsync(request.Email, request.Password);
+
+                if (result.IsSuccessed==true)
+                {
+                    return Results.Ok(result);
+                }
+
+                return Results.BadRequest(result); 
+            });
 
             app.Run();
         }
     }
+
+    // Backend tarafında Login için ayrı bir DTO açılmadığı için 
+    // sadece dışarıdan gelen isteği yakalamak adına Program.cs içinde 
+    // şöyle ufak ve pratik bir record bırakıyoruz:
+    public record LoginRequest(string Email, string Password);
 }
