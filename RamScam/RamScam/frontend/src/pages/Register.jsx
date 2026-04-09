@@ -9,7 +9,7 @@ function Register() {
         <form className='ust-row'>
             <label>E-posta Adresi</label>
             <div>
-                <input type='mail' placeholder='ornek@gmail.com' autoCapitalize='off' autoCorrect='off'/>
+                <input type='email' placeholder='ornek@gmail.com' autoCapitalize='off' autoCorrect='off'/>
             </div>
             <label>Şifre</label>
             <div>   
