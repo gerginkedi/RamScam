@@ -1,9 +1,7 @@
-import '../styles/Home.css';
-import '../styles/layout.css';
 import '../styles/index.css';
+import '../styles/layout.css';
 
-
-function Home() {
+function layout() {
     return (
         <div>
             <h1>Home</h1>
@@ -11,4 +9,4 @@ function Home() {
     )
 }
 
-export default Home
+export default layout
