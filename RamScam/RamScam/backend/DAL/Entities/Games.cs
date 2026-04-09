@@ -3,5 +3,6 @@
     public class Games : BaseEntity
     {
         public string GameName { get; set; }
+        
     }
 }

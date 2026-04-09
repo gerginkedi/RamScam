@@ -8,5 +8,6 @@
         public int GlobalWinCount { get; set; }
         public int GlobalLoseCount { get; set; }
         public int GlobalDrawCount { get; set; }
+        public int GlobalTotalPlayCount { get; set; }
     }
 }

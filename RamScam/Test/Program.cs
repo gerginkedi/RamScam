@@ -16,14 +16,17 @@ optionsBuilder.UseSqlServer(connectionString);
 AppDbContext dbContext = new AppDbContext(optionsBuilder.Options);
 UserRepository userRepository = new UserRepository(dbContext);
 IPasswordHasher passwordHasher = new BcryptPasswordHasher();
-UserService userService = new UserService(userRepository, passwordHasher);
+UserStatsRepository userStatsRepository = new UserStatsRepository(dbContext);
+UserService userService = new UserService(userRepository, userStatsRepository, passwordHasher);
 
-RegisterDTO registerDTO = new RegisterDTO()
+
+
+RegisterResult asd = await userService.RegisterAsync(new RegisterDTO()
 {
-    Email = "qwe@gmail.com",
-    RawPassword = "123456"
-};
+    Email = "asfdgsa",
+    RawPassword = "sde1231"
 
-await userService.RegisterAsync(registerDTO);
-await userService.RegisterAsync(registerDTO);
+});
+
+
 
