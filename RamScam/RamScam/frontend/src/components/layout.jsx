@@ -36,6 +36,17 @@ function Layout({ children }) {
                         <a href>Rulet</a>
                         <a href>Mayın Tarlası</a>
                     </div>
+                    <br />
+                    <br />
+                    <hr className="divider" />
+                    <div className='other-links'>
+                        <a href>İstatistikler</a>
+                        <a href>Cansız Destek</a>
+                        <a href>Ayarlar</a>
+                    </div>
+
+
+                    
                 </div>
             </div>
             <div className="main-content">
