@@ -9,21 +9,6 @@
     overflow: hidden;
     white-space: nowrap;
     width: 100%;
-    transition: width 0.3s;
-    border-radius: 10px;
-}
-
-.layout.sol-closed {
-    grid-template-columns: 40px 1fr 240px;
-}
-
-.bar-toggle {
-    text-align: center;
-    margin: 20px;
-}
-
-.left-bar-content.hidden {
-    display: none;
 }
 
 .home-btn {
@@ -81,3 +66,59 @@
     font-family: 'Exo 2', sans-serif;
 }
 
+.balance-display h2 {
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(194, 84, 25);
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    padding-right: 15px;
+}
+
+.btn-group a {
+    color: rgb(194, 84, 25);
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    font-family: 'Exo 2', sans-serif;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.btn-group a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+
+.quick-access {
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    padding-right: 15px;
+}
+
+.quick-access a {
+    color: rgb(194, 84, 25);
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    font-family: 'Exo 2', sans-serif;
+    transition: background-color 0.2s;
+    cursor: pointer;
+
+}
+
+.quick-access a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+}

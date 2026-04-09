@@ -8,12 +8,15 @@ function Layout({ children }) {
                 <div className="home-btn">
                     <button><a href="/home">RamScam</a></button>
                 </div>
+                <div className="balance-display">
+                    <h2>Chip: 1024 ◈</h2>
+                </div>
                 <div className='auth-container'>
                     <div className="login-btn">
-                        <a href="/login">Login</a>
+                        <a href="/login">Giriş Yap</a>
                     </div>
                     <div className='register-btn'>
-                        <a href="/register">Register</a>
+                        <a href="/register">Kaydol</a>
                     </div>
                 </div>
             </div>
@@ -21,9 +24,17 @@ function Layout({ children }) {
             <div className='layout'>        
             <div className="left-bar">
                 <div className='left-bar-content'>
-                                    
                     <div className="btn-group">
-
+                        <a href>Popüler Oyunlar</a>
+                        <a href>Yeni Oyunlar</a>
+                        <a href>En Son Oynanlar</a>
+                    </div>
+                    <hr className="divider" />
+                    <div className='quick-access'>
+                        <a href>Coin Flip</a>
+                        <a href>Slot Makinesi</a>
+                        <a href>Rulet</a>
+                        <a href>Mayın Tarlası</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +43,6 @@ function Layout({ children }) {
                 { children }
             </div>
             <div className="right-bar">
-            <h1>Sag Bar burasi</h1>
             </div>
             </div>
         </div>
