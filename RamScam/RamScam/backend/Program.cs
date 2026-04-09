@@ -6,6 +6,7 @@ using RamScam.backend.BusinessLogic.Interfaces;
 using RamScam.backend.BusinessLogic.Services;
 using RamScam.backend.BusinessLogic.Models.DTOs;
 using System.Reflection.Metadata.Ecma335;
+using RamScam.backend.BusinessLogic.Models.Results;
 
 namespace RamScam.backend
 {
@@ -25,8 +26,6 @@ namespace RamScam.backend
 
             });
 
-
-
             // Add services to the container.
             #region DI kayitlari
             builder.Services.AddControllers();
@@ -43,10 +42,8 @@ namespace RamScam.backend
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
-            {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
 
 
             app.UseHttpsRedirection();
@@ -58,36 +55,33 @@ namespace RamScam.backend
                 return Results.Ok("Api çalışıyor");
             });
 
-            app.MapGet("/api/home", () => 
+            app.MapGet("/api", () =>
             {
                 // Home için genel bilgiler dönebilirsin
                 return Results.Ok("Hoş geldiniz");
             });
 
-            
-            app.MapPost("/api/register", async (RegisterDTO request, IUserService userService) => 
-            {
-                var result = await userService.RegisterAsync(request);
 
-                if (result.IsSuccessed==true) 
-                {
+
+            app.MapPost("/api/register", async (RegisterRequest request, IUserService userService) =>
+            {
+                RegisterResult result = await userService.RegisterAsync(request.Email, request.Password);
+                if(result.IsSuccessed == true)  
                     return Results.Ok(result);
-                }
 
                 return Results.BadRequest(result);
+
             });
 
-            app.MapPost("/api/login", async (LoginRequest request, IUserService userService) => 
+            app.MapPost("/api/login", async (LoginRequest request, IUserService userService) =>
             {
                 // LoginAsync metodu email ve password bekliyor
-                var result = await userService.LoginAsync(request.Email, request.Password);
+                LoginResult result = await userService.LoginAsync(request.Email, request.Password);
 
-                if (result.IsSuccessed==true)
-                {
+                if (result.IsSuccessed == true)
                     return Results.Ok(result);
-                }
 
-                return Results.BadRequest(result); 
+                return Results.BadRequest(result);
             });
 
             app.Run();
@@ -98,4 +92,5 @@ namespace RamScam.backend
     // sadece dışarıdan gelen isteği yakalamak adına Program.cs içinde 
     // şöyle ufak ve pratik bir record bırakıyoruz:
     public record LoginRequest(string Email, string Password);
+    public record RegisterRequest(string Email, string Password);
 }

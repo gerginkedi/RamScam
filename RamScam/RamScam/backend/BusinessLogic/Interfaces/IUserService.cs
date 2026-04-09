@@ -6,8 +6,7 @@ namespace RamScam.backend.BusinessLogic.Interfaces
 {
     public interface IUserService
     {
-        public Task<RegisterResult> RegisterAsync(RegisterDTO registerDTO);
+        public Task<RegisterResult> RegisterAsync(string email, string password);
         public Task<LoginResult> LoginAsync(string email, string password);
-
     }
 }

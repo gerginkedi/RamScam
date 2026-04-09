@@ -20,14 +20,14 @@ namespace RamScam.backend.BusinessLogic.Services
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<RegisterResult> RegisterAsync(RegisterDTO registerDTO)
+        public async Task<RegisterResult> RegisterAsync(string email, string password)
         {
             User userToRegister = new User()
             {
-                EMail = registerDTO.Email,
-                HashedPassword = await _passwordHasher.HashAsync(registerDTO.RawPassword)
+                EMail = email,
+                HashedPassword = await _passwordHasher.HashAsync(password)
             };
-            User isUsersEmailExist = await _userRepository.GetByEmailAsync(registerDTO.Email);
+            User isUsersEmailExist = await _userRepository.GetByEmailAsync(email);
             if (isUsersEmailExist != null)
             {
                 return new RegisterResult()
