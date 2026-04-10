@@ -1,0 +1,53 @@
+.swiper {
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+.top-games-swiper {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.top-games-swiper h2 {
+    font-size: 24px;
+    margin-bottom: 50px;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+}
+
+.game-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.game-card img {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.game-card button {
+    border: 1px solid rgb(194, 84, 25);
+    background-color: rgb(194, 84, 25);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.game-info h3{  
+    font-size: 20px;
+    margin: 10px 0;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+}
