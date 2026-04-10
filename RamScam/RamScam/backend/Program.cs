@@ -7,6 +7,7 @@ using RamScam.backend.BusinessLogic.Services;
 using RamScam.backend.BusinessLogic.Models.DTOs;
 using System.Reflection.Metadata.Ecma335;
 using RamScam.backend.BusinessLogic.Models.Results;
+using RamScam.backend.BusinessLogic.Models.Records;
 
 namespace RamScam.backend
 {
@@ -65,7 +66,7 @@ namespace RamScam.backend
 
             app.MapPost("/api/register", async (RegisterRequest request, IUserService userService) =>
             {
-                RegisterResult result = await userService.RegisterAsync(request.Email, request.Password);
+                RegisterResult result = await userService.RegisterAsync(request.Email, request.RawPassword);
                 if(result.IsSuccessed == true)  
                     return Results.Ok(result);
 
@@ -76,7 +77,7 @@ namespace RamScam.backend
             app.MapPost("/api/login", async (LoginRequest request, IUserService userService) =>
             {
                 // LoginAsync metodu email ve password bekliyor
-                LoginResult result = await userService.LoginAsync(request.Email, request.Password);
+                LoginResult result = await userService.LoginAsync(request.Email, request.RawPassword);
 
                 if (result.IsSuccessed == true)
                     return Results.Ok(result);
@@ -87,10 +88,4 @@ namespace RamScam.backend
             app.Run();
         }
     }
-
-    // Backend tarafında Login için ayrı bir DTO açılmadığı için 
-    // sadece dışarıdan gelen isteği yakalamak adına Program.cs içinde 
-    // şöyle ufak ve pratik bir record bırakıyoruz:
-    public record LoginRequest(string Email, string Password);
-    public record RegisterRequest(string Email, string Password);
 }
