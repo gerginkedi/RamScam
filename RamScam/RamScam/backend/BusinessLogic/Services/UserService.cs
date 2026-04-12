@@ -13,7 +13,7 @@ namespace RamScam.backend.BusinessLogic.Services
         private readonly IUserRepository _userRepository;
         private readonly IUserStatsRepository _userStatsRepository;
         private readonly IPasswordHasher _passwordHasher;
-        public UserService(IUserRepository userRepository,IUserStatsRepository userStatsRepository ,IPasswordHasher passwordHasher)
+        public UserService(IUserRepository userRepository, IUserStatsRepository userStatsRepository, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
             _userStatsRepository = userStatsRepository;
@@ -27,19 +27,17 @@ namespace RamScam.backend.BusinessLogic.Services
                 EMail = email,
                 HashedPassword = await _passwordHasher.HashAsync(password)
             };
-            User isUsersEmailExist = await _userRepository.GetByEmailAsync(email);
+            User? isUsersEmailExist = await _userRepository.GetByEmailAsync(email);
+
             if (isUsersEmailExist != null)
-            {
                 return new RegisterResult()
                 {
                     IsSuccessed = false,
                     Message = "This email is already registered."
                 };
-            }
 
 
-            try
-            {
+            
                 int gameCount = Enum.GetValues(typeof(GameType)).Length;
 
                 for (int i = 1; i <= gameCount; i++)
@@ -56,65 +54,44 @@ namespace RamScam.backend.BusinessLogic.Services
 
                 return new RegisterResult()
                 {
-                    IsSuccessed = true
+                    IsSuccessed = true,
+                    Message = "Registration successful."
                 };
-            }
-            catch (Exception e)
-            {
-                return new RegisterResult()
-                {
-                    IsSuccessed = false,
-                    Message = "failed to register" + e.Message
-                };
-            }
 
 
         }
         public async Task<LoginResult> LoginAsync(string email, string password)
         {
-            try
-            {
-                User? loggingInUser = await _userRepository.GetByEmailAsync(email);
 
-                if (loggingInUser != null)
-                {
-                    bool isPassTrue = await _passwordHasher.VerifyAsync(password, loggingInUser.HashedPassword);
-                    if (isPassTrue)
+            User? loggingInUser = await _userRepository.GetByEmailAsync(email);
+
+            if (loggingInUser != null)
+            {
+                bool isPassTrue = await _passwordHasher.VerifyAsync(password, loggingInUser.HashedPassword);
+
+                if (isPassTrue)
+                    return new LoginResult()
                     {
-                        return new LoginResult()
-                        {
-                            IsSuccessed = true,
-                            Message = "Login successful.",
-                            UserId = loggingInUser.Id
-                        };
-                    }
-                    else
-                    {
-                        return new LoginResult()
-                        {
-                            IsSuccessed = false,
-                            Message = "Invalid email or password.",
-                        };
-                    }
-                    
-                }
+                        IsSuccessed = true,
+                        Message = "Login successful.",
+                        UserId = loggingInUser.Id
+                    };
+
                 else
-                {
                     return new LoginResult()
                     {
                         IsSuccessed = false,
                         Message = "Invalid email or password.",
                     };
-                }
+
             }
-            catch (Exception e)
-            {
+            else
                 return new LoginResult()
                 {
                     IsSuccessed = false,
-                    Message = e.Message
+                    Message = "Invalid email or password.",
                 };
-            }
+
         }
     }
 }

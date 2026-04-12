@@ -8,8 +8,12 @@ namespace RamScam.backend.DAL.Interfaces
         /// @brief returns all entities as queryable
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TEntity>> GetAllAsync(); //uses IEnumarable because of we want to take all the data to the memory when data is so big and u want to filter that data u could use IQueryable
-
+        Task<IQueryable<TEntity>> GetAllAsync(); //uses IEnumarable because of we want to take all the data to the memory when data is so big and u want to filter that data u could use IQueryable
+        /// <summary>
+        /// @brief returns all entities as queryable without tracking. it is used when we want to take data only for reading and we dont want to change that data. it is faster than GetAllAsync because it doesnt track changes in the entities
+        /// </summary>
+        /// <returns></returns>
+        Task<IQueryable<TEntity>> GetAllUntrackedAsync();
 
         /// <summary>
         /// @brief returns requested entity as entity

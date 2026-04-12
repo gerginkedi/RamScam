@@ -5,6 +5,6 @@ namespace RamScam.backend.BusinessLogic.Interfaces
 {
     public interface IGameStatsService
     {
-        public Task<GameStatsResult> SaveGameResultAsync(GameResultDTO gameResult, int userId);
+        public Task<GameStatsResult> SaveGameResultAsync(GameResultDTO gameResult);
     }
 }

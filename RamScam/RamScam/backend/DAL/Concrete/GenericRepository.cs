@@ -24,9 +24,13 @@ namespace RamScam.backend.DAL.Concrete
         #endregion
 
         #region Read
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IQueryable<TEntity>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return  _dbSet.AsQueryable();
+        }
+        public async Task<IQueryable<TEntity>> GetAllUntrackedAsync()
+        {
+            return _dbSet.AsNoTracking();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)
@@ -34,6 +38,8 @@ namespace RamScam.backend.DAL.Concrete
             return await _dbSet
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
+
+        
         #endregion
 
         #region Update
@@ -50,6 +56,8 @@ namespace RamScam.backend.DAL.Concrete
             _dbSet.Remove(await GetByIdAsync(id));
             await _context.SaveChangesAsync();
         }
+
+
         #endregion
     }
 }

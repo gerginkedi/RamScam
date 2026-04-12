@@ -14,7 +14,6 @@ namespace RamScam.backend.DAL.Concrete
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            
                 User? user = await _context.Users.FirstOrDefaultAsync(u => u.EMail == email);
                 if (user != null)
                     return user;

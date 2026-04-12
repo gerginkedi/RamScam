@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RamScam.backend.BusinessLogic.Models.DTOs;
 using RamScam.backend.BusinessLogic.Models.Results;
 using RamScam.backend.BusinessLogic.Services;
 using RamScam.backend.DAL;
 using RamScam.backend.DAL.Concrete;
 using RamScam.backend.DAL.Interfaces;
+using static RamScam.backend.BusinessLogic.Models.DTOs.GameResultDTO;
 
 
 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
@@ -18,15 +18,21 @@ UserRepository userRepository = new UserRepository(dbContext);
 IPasswordHasher passwordHasher = new BcryptPasswordHasher();
 UserStatsRepository userStatsRepository = new UserStatsRepository(dbContext);
 UserService userService = new UserService(userRepository, userStatsRepository, passwordHasher);
+GlobalStatsRepository globalStatsRepository = new GlobalStatsRepository(dbContext);
+GamesRepository gamesRepository = new GamesRepository(dbContext);
+GameStatsService gameStatsService = new GameStatsService(userRepository, globalStatsRepository, gamesRepository, userStatsRepository);
 
-
-
-RegisterResult asd = await userService.RegisterAsync(new RegisterDTO()
+GameResultDTO gameResultDTO = new GameResultDTO
 {
-    Email = "asfdgsa",
-    RawPassword = "sde1231"
+    GameSummary = GameResult.Win,
+    GameId = 1,
+    UserId = 9
 
-});
+};
 
 
+GameStatsResult asd =await gameStatsService.SaveGameResultAsync(gameResultDTO);
 
+Console.WriteLine(asd.GamesResult);
+Console.WriteLine(asd.IsSuccessed);
+Console.WriteLine(asd.Message);

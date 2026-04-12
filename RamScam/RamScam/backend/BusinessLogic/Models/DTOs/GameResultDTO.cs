@@ -6,11 +6,13 @@
         {
             Win = 1,
             Lose = 2,
-            Draw = 3
+            Draw = 3,
+            Crashed = 4,
         }
 
         public int GameId { get; set; }
         public GameResult GameSummary { get; set; }
+        public int UserId { get; set; }
 
     }
 }
