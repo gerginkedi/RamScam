@@ -13,9 +13,9 @@ namespace RamScam.backend.BusinessLogic.Services
         private readonly IUserRepository _userRepository;
         private readonly IGlobalStatsRepository _globalStatsRepository;
         private readonly IGamesRepository _gamesRepository;
-        private readonly UserStatsRepository _userStatsRepository;
+        private readonly IUserStatsRepository _userStatsRepository;
 
-        public GameStatsService(IUserRepository userRepository, IGlobalStatsRepository globalStatsRepository, IGamesRepository gamesRepository, UserStatsRepository userStatsRepository)
+        public GameStatsService(IUserRepository userRepository, IGlobalStatsRepository globalStatsRepository, IGamesRepository gamesRepository, IUserStatsRepository userStatsRepository)
         {
             _userRepository = userRepository;
             _globalStatsRepository = globalStatsRepository;
