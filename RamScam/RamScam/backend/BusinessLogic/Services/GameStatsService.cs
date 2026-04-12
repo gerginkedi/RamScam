@@ -25,17 +25,10 @@ namespace RamScam.backend.BusinessLogic.Services
 
         public async Task<GameStatsResult> SaveGameResultAsync(GameResultDTO gameResult)
         {
-
-            // TODO : ayarla burayi, kullanci oyun oynadiginda hem global hem de kendi stati guncellencek.
-
-
-
-
-            //_userRepository.GetByIdAsync(gameResult.)
-            UserStats? personelStatsToChange = await _userStatsRepository.FindPlayedGameAsync(gameResult.UserId, gameResult.GameId);
+            UserStats? personalStatsToChange = await _userStatsRepository.FindPlayedGameAsync(gameResult.UserId, gameResult.GameId);
             GlobalStats? globalStatsToChange = await _globalStatsRepository.GetByGameIdAsync(gameResult.GameId);
 
-            if (personelStatsToChange == null)
+            if (personalStatsToChange == null)
                 return new GameStatsResult
                 {
                     IsSuccessed = false,
@@ -53,7 +46,7 @@ namespace RamScam.backend.BusinessLogic.Services
 
             GameStatsResult result = new GameStatsResult();
 
-            personelStatsToChange.TotalPlayCount++;
+            personalStatsToChange.TotalPlayCount++;
             globalStatsToChange.GlobalTotalPlayCount++;
 
             switch (gameResult.GameSummary)
@@ -61,13 +54,13 @@ namespace RamScam.backend.BusinessLogic.Services
                 case GameResult.Win:
                     globalStatsToChange.GlobalWinCount++;
 
-                    personelStatsToChange.WinCount++;
+                    personalStatsToChange.WinCount++;
                     result.GamesResult = GameResult.Win;
 
                     result.IsSuccessed = true;
                     result.Message = "Game result saved successfully.";
 
-                    await _userStatsRepository.UpdateAsync(personelStatsToChange);
+                    await _userStatsRepository.UpdateAsync(personalStatsToChange);
                     await _globalStatsRepository.UpdateAsync(globalStatsToChange);
 
                     return result;
@@ -75,13 +68,13 @@ namespace RamScam.backend.BusinessLogic.Services
 
                 case GameResult.Lose:
                     globalStatsToChange.GlobalLoseCount++;
-                    personelStatsToChange.LoseCount++;
+                    personalStatsToChange.LoseCount++;
 
                     result.GamesResult = GameResult.Lose;
                     result.IsSuccessed = true;
                     result.Message = "Game result saved successfully.";
 
-                    await _userStatsRepository.UpdateAsync(personelStatsToChange);
+                    await _userStatsRepository.UpdateAsync(personalStatsToChange);
                     await _globalStatsRepository.UpdateAsync(globalStatsToChange);
 
                     return result;
@@ -89,13 +82,13 @@ namespace RamScam.backend.BusinessLogic.Services
 
                 case GameResult.Draw:
                     globalStatsToChange.GlobalDrawCount++;
-                    personelStatsToChange.DrawCount++;
+                    personalStatsToChange.DrawCount++;
 
                     result.GamesResult = GameResult.Draw;
                     result.IsSuccessed = true;
                     result.Message = "Game result saved successfully.";
 
-                    await _userStatsRepository.UpdateAsync(personelStatsToChange);
+                    await _userStatsRepository.UpdateAsync(personalStatsToChange);
                     await _globalStatsRepository.UpdateAsync(globalStatsToChange);
 
                     return result;
@@ -106,10 +99,6 @@ namespace RamScam.backend.BusinessLogic.Services
                     result.IsSuccessed = false;
                     result.Message = "Game results cannot saved.";
                     return result;
-
-
-
-
             }
         }
     }
