@@ -36,6 +36,7 @@ namespace RamScam.backend
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserStatsRepository, UserStatsRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IGameStatsService, GameStatsService>();
             #endregion
 
 
@@ -83,6 +84,51 @@ namespace RamScam.backend
                     return Results.Ok(result);
 
                 return Results.BadRequest(result);
+            });
+
+            // React'ten gelen oyun skoru sonucunu alır ve GameStatsService aracılığıyla veritabanına kaydeder.
+            app.MapPost("/api/games/save-result", async (GameResultDTO resultData, IGameStatsService gameStatsService) =>
+            {
+                // Arkadaşının yazdığı servise React'ten gelen veriyi teslim ediyoruz
+                GameStatsResult result = await gameStatsService.SaveGameResultAsync(resultData);
+
+                if (result.IsSuccessed)
+                    return Results.Ok(result);
+
+                return Results.BadRequest(result);
+            });
+
+            // İstenilen bir oyunun (gameId) dünya çapındaki toplam oynanma, kazanılma gibi istatistiklerini getirir.
+            app.MapGet("/api/stats/global/{gameId}", async (int gameId, IGlobalStatsRepository globalStatsRepo) =>
+            {
+                var stats = await globalStatsRepo.GetByGameIdAsync(gameId);
+
+                if (stats == null)
+                    return Results.NotFound(new { message = "Bu oyun için istatistik bulunamadı." });
+
+                return Results.Ok(stats);
+            });
+
+            // Specific bir kullanıcının (userId) daha önce oynadığı tüm oyunların maç sonuçlarını getirir.
+            app.MapGet("/api/users/{userId}/stats", async (int userId, IUserStatsRepository userStatsRepo) =>
+            {
+                // Veritabanındaki tüm kullanıcı istatistiklerini tablodan okumak için çağırıyoruz
+                var allStats = await userStatsRepo.GetAllUntrackedAsync();
+
+                // Ardından sadece o kullanıcıya ait olanları filtreleyip listeye çeviriyoruz.
+                var userStats = await allStats.Where(stat => stat.UserId == userId).ToListAsync();
+
+                return Results.Ok(userStats);
+            });
+
+            // Anakranda veya menüde oyunların isimlerini listelemek için tüm oyunları React'e gönderir.
+            app.MapGet("/api/games", async (IGamesRepository gamesRepo) =>
+            {
+                // Veritabanındaki sistemdeki tüm oyunları çekiyoruz
+                var allGames = await gamesRepo.GetAllUntrackedAsync();
+                var gamesList = await allGames.ToListAsync();
+
+                return Results.Ok(gamesList);
             });
 
             app.Run();
