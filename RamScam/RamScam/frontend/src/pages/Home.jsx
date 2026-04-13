@@ -17,9 +17,9 @@ function Home() {
                     <div className="embla__container">
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="https://via.placeholder.com/80x80" alt="Game A" />
-                                <div className='game-info'><h3>Game A</h3></div>
-                                <a href='/games-a'>Oyna</a>
+                                <img src="/images/coinflip-logo.png" alt="Coinflip" className='coinflip-logo'/>
+                                <div className='game-info'><h3>Coinflip</h3></div>
+                                <a href='/games/coinflip'>Oyna</a>
                             </div>
                         </div>
                         <div className="embla__slide">
