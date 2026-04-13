@@ -28,6 +28,7 @@ function Layout({ children }) {
                         <a href>Popüler Oyunlar</a>
                         <a href>Yeni Oyunlar</a>
                         <a href>En Son Oynanlar</a>
+                        <a href="/games">Oyunlar</a>
                     </div>
                     <hr className="divider" />
                     <div className='quick-access'>
