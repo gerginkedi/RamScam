@@ -26,8 +26,8 @@
     justify-content: space-between;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 5px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -113,4 +113,12 @@
     margin-top: 20px;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+.coinflip-logo {
+    width: 80px;
+    height: auto;
+    margin-left: 20px;
+    margin-top: -40px;
+    margin-bottom: -40px;
 }

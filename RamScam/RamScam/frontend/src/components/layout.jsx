@@ -32,7 +32,7 @@ function Layout({ children }) {
                     </div>
                     <hr className="divider" />
                     <div className='quick-access'>
-                        <a href>Coin Flip</a>
+                        <a href="/games/coinflip">Coin Flip</a>
                         <a href>Slot Makinesi</a>
                         <a href>Rulet</a>
                         <a href>Mayın Tarlası</a>
