@@ -65,6 +65,7 @@ namespace RamScam.backend
 
             app.MapGet("/api/test", () => new { message = "Bağlantı başarılı!" });
 
+            //
             app.Run();
         }
     }
