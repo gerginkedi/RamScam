@@ -40,3 +40,10 @@ Esnekliği ve eğlenceyi artırmak için her run bir **seed** değerine sahip ol
 ![Database diagram](Images/DbScheme.png)
 
 
+### Kurulum
+
+```
+cd frontend
+npm install
+npm run dev
+```
