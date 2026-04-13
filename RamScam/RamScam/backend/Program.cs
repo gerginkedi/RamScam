@@ -20,7 +20,7 @@ namespace RamScam.backend
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<AppDbContext>(options =>
-            {   
+            {
                 options.UseSqlServer(connectionString, sqlOptions => sqlOptions.EnableRetryOnFailure(
                     maxRetryCount: 10,
                     maxRetryDelay: TimeSpan.FromSeconds(30),
@@ -28,7 +28,15 @@ namespace RamScam.backend
 
             });
 
-            // Add services to the container.
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowVite", policy =>
+                    policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+            });
+
+
             #region DI kayitlari
             builder.Services.AddControllers();
             builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
@@ -38,6 +46,7 @@ namespace RamScam.backend
             builder.Services.AddScoped<IUserStatsRepository, UserStatsRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IGameStatsService, GameStatsService>();
+            builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             #endregion
 
 
@@ -49,89 +58,12 @@ namespace RamScam.backend
                 app.UseHsts();
 
 
+            app.UseCors("AllowVite");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 
-            //app.MapGet("/test", () =>
-            //{
-            //    return Results.Ok("Api çalışıyor");
-            //});
-
-            //app.MapGet("/", () =>
-            //{
-            //    // Home için genel bilgiler dönebilirsin
-            //    return Results.Ok("Hoş geldiniz");
-            //});
-
-
-
-            //app.MapPost("/register", async (RegisterRequest request, IUserService userService) =>
-            //{
-            //    RegisterResult result = await userService.RegisterAsync(request.Email, request.RawPassword);
-            //    if(result.IsSuccessed == true)  
-            //        return Results.Ok(result);
-
-            //    return Results.BadRequest(result);
-
-            //});
-
-            //app.MapPost("/login", async (LoginRequest request, IUserService userService) =>
-            //{
-            //    // LoginAsync metodu email ve password bekliyor
-            //    LoginResult result = await userService.LoginAsync(request.Email, request.RawPassword);
-
-            //    if (result.IsSuccessed == true)
-            //        return Results.Ok(result);
-
-            //    return Results.BadRequest(result);
-            //});
-
-            //// React'ten gelen oyun skoru sonucunu alır ve GameStatsService aracılığıyla veritabanına kaydeder.
-            //app.MapPost("/games/save-result", async (GameResultDTO resultData, IGameStatsService gameStatsService) =>
-            //{
-            //    // Arkadaşının yazdığı servise React'ten gelen veriyi teslim ediyoruz
-            //    GameStatsResult result = await gameStatsService.SaveGameResultAsync(resultData);
-
-            //    if (result.IsSuccessed)
-            //        return Results.Ok(result);
-
-            //    return Results.BadRequest(result);
-            //});
-
-            //// İstenilen bir oyunun (gameId) dünya çapındaki toplam oynanma, kazanılma gibi istatistiklerini getirir.
-            //app.MapGet("/stats/global/{gameId}", async (int gameId, IGlobalStatsRepository globalStatsRepo) =>
-            //{
-            //    GlobalStats stats = await globalStatsRepo.GetByGameIdAsync(gameId);
-
-            //    if (stats == null)
-            //        return Results.NotFound(new { message = "Bu oyun için istatistik bulunamadı." });
-
-            //    return Results.Ok(stats);
-            //});
-
-            //// Specific bir kullanıcının (userId) daha önce oynadığı tüm oyunların maç sonuçlarını getirir.
-            //app.MapGet("/users/{userId}/stats", async (int userId, IUserStatsRepository userStatsRepo) =>
-            //{
-            //    // Veritabanındaki tüm kullanıcı istatistiklerini tablodan okumak için çağırıyoruz
-            //    var allStats = await userStatsRepo.GetAllUntrackedAsync();
-
-            //    // Ardından sadece o kullanıcıya ait olanları filtreleyip listeye çeviriyoruz.
-            //    var userStats = await allStats.Where(stat => stat.UserId == userId).ToListAsync();
-                
-
-            //    return Results.Ok(userStats);
-            //});
-
-            //// Anakranda veya menüde oyunların isimlerini listelemek için tüm oyunları React'e gönderir.
-            //app.MapGet("/games", async (IGamesRepository gamesRepo) =>
-            //{
-            //    // Veritabanındaki sistemdeki tüm oyunları çekiyoruz
-            //    var allGames = await gamesRepo.GetAllUntrackedAsync();
-            //    var gamesList = await allGames.ToListAsync();
-
-            //    return Results.Ok(gamesList);
-            //});
+            app.MapGet("/api/test", () => new { message = "Bağlantı başarılı!" });
 
             app.Run();
         }

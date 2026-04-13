@@ -22,17 +22,26 @@ GlobalStatsRepository globalStatsRepository = new GlobalStatsRepository(dbContex
 GamesRepository gamesRepository = new GamesRepository(dbContext);
 GameStatsService gameStatsService = new GameStatsService(userRepository, globalStatsRepository, gamesRepository, userStatsRepository);
 
-GameResultDTO gameResultDTO = new GameResultDTO
+//GameResultDTO gameResultDTO = new GameResultDTO
+//{
+//    GameSummary = GameResult.Win,
+//    GameId = 1,
+//    UserId = 9
+
+//};
+
+
+//GameStatsResult asd = await gameStatsService.SaveGameResultAsync(gameResultDTO);
+
+//Console.WriteLine(asd.GamesResult);
+//Console.WriteLine(asd.IsSuccessed);
+//Console.WriteLine(asd.Message);
+
+var qwe = await gameStatsService.GetUserStatsByUserId(9);
+
+Console.WriteLine(qwe.IsSuccessed);
+Console.WriteLine(qwe.Message);
+for (int i = 0; i < qwe.UserStats.Count(); i++)    
 {
-    GameSummary = GameResult.Win,
-    GameId = 1,
-    UserId = 9
-
-};
-
-
-GameStatsResult asd =await gameStatsService.SaveGameResultAsync(gameResultDTO);
-
-Console.WriteLine(asd.GamesResult);
-Console.WriteLine(asd.IsSuccessed);
-Console.WriteLine(asd.Message);
+    Console.WriteLine(qwe.UserStats[i].WinCount);
+}

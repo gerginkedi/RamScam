@@ -1,9 +1,14 @@
-﻿using RamScam.backend.BusinessLogic.Interfaces;
+﻿using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
+using RamScam.backend.BusinessLogic.Interfaces;
 using RamScam.backend.BusinessLogic.Models.DTOs;
 using RamScam.backend.BusinessLogic.Models.Results;
 using RamScam.backend.DAL.Concrete;
 using RamScam.backend.DAL.Entities;
 using RamScam.backend.DAL.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using static RamScam.backend.DAL.Entities.GameTypes;
 
 namespace RamScam.backend.BusinessLogic.Services
@@ -13,11 +18,14 @@ namespace RamScam.backend.BusinessLogic.Services
         private readonly IUserRepository _userRepository;
         private readonly IUserStatsRepository _userStatsRepository;
         private readonly IPasswordHasher _passwordHasher;
-        public UserService(IUserRepository userRepository, IUserStatsRepository userStatsRepository, IPasswordHasher passwordHasher)
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        
+        public UserService(IUserRepository userRepository, IUserStatsRepository userStatsRepository, IPasswordHasher passwordHasher, IJwtTokenGenerator jwtTokenGenerator)
         {
             _userRepository = userRepository;
             _userStatsRepository = userStatsRepository;
             _passwordHasher = passwordHasher;
+            _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         public async Task<RegisterResult> RegisterAsync(string email, string password)
@@ -62,19 +70,18 @@ namespace RamScam.backend.BusinessLogic.Services
         }
         public async Task<LoginResult> LoginAsync(string email, string password)
         {
-
             User? loggingInUser = await _userRepository.GetByEmailAsync(email);
+
 
             if (loggingInUser != null)
             {
-                bool isPassTrue = await _passwordHasher.VerifyAsync(password, loggingInUser.HashedPassword);
-
-                if (isPassTrue)
+                if (await _passwordHasher.VerifyAsync(password, loggingInUser.HashedPassword))
                     return new LoginResult()
                     {
                         IsSuccessed = true,
                         Message = "Login successful.",
-                        UserId = loggingInUser.Id
+                        UserId = loggingInUser.Id,
+                        Token = _jwtTokenGenerator.Generate(loggingInUser.Id, loggingInUser.EMail)
                     };
 
                 else
@@ -93,5 +100,7 @@ namespace RamScam.backend.BusinessLogic.Services
                 };
 
         }
+
+        
     }
 }
