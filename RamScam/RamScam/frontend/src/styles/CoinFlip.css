@@ -59,3 +59,38 @@
     border-color: rgb(255, 100, 50);
 }
 
+.game-coin {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.coinflip-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Sayfanın ne kadarını kaplayacağını kendine göre ayarla */
+    width: 100%;
+}
+
+/* Oyun içi elementlerin alt alta (column) dizilmesi */
+.gsp-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* Video ile butonlar arasındaki boşluk */
+    width: 100%;
+}
+
+/* Butonların yan yana ortalanması */
+.gsp-btn-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* İki buton arasındaki boşluk */
+}
+
+.gsp-root canvas {
+    border: 1px solid rgb(194, 84, 25);
+}
