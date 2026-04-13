@@ -1,0 +1,116 @@
+.embla {
+    overflow: hidden;
+}
+
+.embla__container {
+    display: flex;
+    cursor: grab;
+    gap: 10px;
+    padding: 10px;
+}
+
+.embla__slide {
+    flex: 0 0 30%;
+}
+
+.top-games-swiper h2 {
+    margin-left: 20px;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+    font-size: 24px;
+}
+
+.game-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.game-card img {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.game-card button {
+    border: 1px solid rgb(194, 84, 25);
+    background-color: rgb(194, 84, 25);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    font-family: 'Exo 2', sans-serif;
+    cursor: pointer;
+}
+
+.game-card a {
+    border: 1px solid rgb(194, 84, 25);
+    background-color: rgb(194, 84, 25);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    font-family: 'Exo 2', sans-serif;
+    cursor: pointer;
+}
+
+.game-info h3{  
+    font-size: 20px;
+    margin: 10px 0;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+}
+
+.for-you h2 {
+    margin-left: 20px;
+    margin-top: 60px;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+    font-size: 24px;
+}
+
+
+.activity-feed h2 {
+    margin-left: 20px;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+    font-size: 24px;
+}
+
+.game-list h3{
+    font-size: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(200, 200, 200);
+    padding: 20px;
+}
+
+.middle-game-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    gap: 40px;
+}
+
+.side-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}

@@ -4,8 +4,9 @@ import '../styles/index.css'
 
 function Register() {
   return (
-    <div className="login-container">
+    <div className="register-container">
       <div className="flex-container">
+        <h1>Kayıt Olun</h1> 
         <form className='ust-row'>
             <label>E-posta Adresi</label>
             <div>

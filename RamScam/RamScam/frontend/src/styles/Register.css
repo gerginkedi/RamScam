@@ -1,4 +1,4 @@
-body {
+.register-container body {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -9,7 +9,7 @@ body {
     
 }
 
-h1 {
+.register-container h1 {
     margin-bottom: 40px;
     color: white;
     font-size: 32px;
@@ -17,7 +17,7 @@ h1 {
     font-family: 'Exo 2', sans-serif;
 }
 
-.login-container {
+.register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,8 +44,8 @@ h1 {
     background-color: transparent;
     
 }
-
-input {
+    
+.register-container input {
     border: 1px solid rgb(124, 53, 15);
     border-radius: 5px;
     outline: none;
@@ -56,7 +56,7 @@ input {
     padding: 10px;
 }
 
-button {
+.register-container button {
     box-sizing: border-box;
 }
 
@@ -70,7 +70,7 @@ button {
 }
 
 
-label {
+.register-container label {
     display: block;
     text-align: left;
     color: white;
