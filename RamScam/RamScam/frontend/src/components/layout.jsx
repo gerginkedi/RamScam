@@ -1,7 +1,10 @@
 import '../styles/index.css';
 import '../styles/layout.css';
+import { useRam } from '../useRam';
 
 function Layout({ children }) {
+    const { ramBalance } = useRam();
+
     return (
         <div>
             <div className='top-bar'>
@@ -9,7 +12,7 @@ function Layout({ children }) {
                     <button><a href="/home">RamScam</a></button>
                 </div>
                 <div className="balance-display">
-                    <h2>Chip: 1024 ◈</h2>
+                    <h2>Chip: {ramBalance} ◈</h2>
                 </div>
                 <div className='auth-container'>
                     <div className="login-btn">

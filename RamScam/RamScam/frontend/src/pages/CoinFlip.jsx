@@ -3,6 +3,7 @@ import '../styles/index.css';
 import '../styles/CoinFlip.css';
 import Layout from '../components/layout';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRam } from '../useRam'
 
 const CHROMA_CONFIG = {
     keyColor: { r: 0, g: 180, b: 0 },
@@ -11,8 +12,8 @@ const CHROMA_CONFIG = {
 };
 
 const VIDEOS = [
-    { id: 1, label: 'Yazı', src: '/videos/coinflip-tails.mp4' },
-    { id: 2, label: 'Tura', src: '/videos/coinflip-heads.mp4' },
+    { id: 1, label: 'yazi', src: '/videos/coinflip-tails.mp4' },
+    { id: 2, label: 'tura', src: '/videos/coinflip-heads.mp4' },
 ];
 
 function chromaKeyRemove(imageData, config) {
@@ -31,10 +32,10 @@ function chromaKeyRemove(imageData, config) {
         );
 
         if (distance < threshold) {
-            data[i + 3] = 0; 
+            data[i + 3] = 0;
         } else if (distance < threshold + feather) {
             const alpha = ((distance - threshold) / feather) * 255;
-            data[i + 3] = alpha; 
+            data[i + 3] = alpha;
         }
     }
     return imageData;
@@ -47,11 +48,18 @@ function CoinFlip() {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const animRef = useRef(null);
-    const ctxRef = useRef(null); // Canvas Context'i burada tutacağız
+    const ctxRef = useRef(null);
+    const videoEndOutcome = useRef(null); // Video bitince sonucu okumak için
 
     const [isPlaying, setIsPlaying] = useState(false);
 
-    // 1. ADIM: Sayfa yüklendiğinde Canvas Context'i GARANTİ OLARAK al
+    // --- YENİ STATE'LER ---
+    // TODO: Backend hazır olduğunda STARTING_RAM yerine API'den çek
+    const { ramBalance, addRam, removeRam } = useRam();
+    const [betAmount, setBetAmount] = useState('');
+    const [result, setResult] = useState(null);   // null | 'win' | 'lose'
+    const [betError, setBetError] = useState(''); // Input validation mesajı
+
     useEffect(() => {
         if (canvasRef.current && !ctxRef.current) {
             ctxRef.current = canvasRef.current.getContext('2d', { willReadFrequently: true });
@@ -61,8 +69,6 @@ function CoinFlip() {
     const resetGameState = useCallback(() => {
         setIsPlaying(false);
         if (animRef.current) cancelAnimationFrame(animRef.current);
-        
-        // Video bittiğinde veya hata verdiğinde ekranı temizlemek istersen (Opsiyonel)
         if (canvasRef.current && ctxRef.current) {
             ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         }
@@ -73,9 +79,7 @@ function CoinFlip() {
         const canvas = canvasRef.current;
         const ctx = ctxRef.current;
 
-        if (!video || !canvas || !ctx || video.paused || video.ended) {
-            return;
-        }
+        if (!video || !canvas || !ctx || video.paused || video.ended) return;
 
         try {
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -91,13 +95,10 @@ function CoinFlip() {
         animRef.current = requestAnimationFrame(processFrame);
     }, [resetGameState]);
 
-    // Video verisi gerçekten okunabilir olduğunda boyutları ayarla
     const handleVideoLoadedData = () => {
         const video = videoRef.current;
         const canvas = canvasRef.current;
-        
         if (video && canvas) {
-            // Gerçek video boyutunu al, bulamazsa varsayılanı kullan
             canvas.width = video.videoWidth || 640;
             canvas.height = video.videoHeight || 360;
         }
@@ -108,25 +109,59 @@ function CoinFlip() {
         animRef.current = requestAnimationFrame(processFrame);
     };
 
-    const handleVideoEnded = () => resetGameState();
+    const handleVideoEnded = () => {
+        const outcome = videoEndOutcome.current;
+        const bet = parseInt(betAmount);
+
+        if (outcome === 'win') addRam(bet);
+        else if (outcome === 'lose') removeRam(bet);
+
+        setResult(outcome);
+        resetGameState();
+    };
+
     const handleVideoError = (e) => {
         console.error("Video Oynatma Hatası:", e);
         resetGameState();
     };
 
-    const handleCoin = () => {
+    const handleBetInput = (e) => {
+        setBetError('');
+        setResult(null);
+        const val = e.target.value;
+        // Sadece pozitif tam sayı kabul et
+        if (val === '' || /^\d+$/.test(val)) {
+            setBetAmount(val);
+        }
+    };
+
+    const handleCoin = (choice) => {
         if (isPlaying) return;
 
+        // --- VALIDASYON ---
+        const bet = parseInt(betAmount);
+        if (!betAmount || isNaN(bet) || bet <= 0) {
+            setBetError('Geçerli bir miktar girin.');
+            return;
+        }
+        if (bet > ramBalance) {
+            setBetError('Yetersiz RAM bakiyesi.');
+            return;
+        }
+
+        setBetError('');
+        setResult(null);
         resetGameState();
         setIsPlaying(true);
-        
+
+        // Random sonuç seç ve kullanıcı seçimiyle karşılaştır
         const pick = VIDEOS[Math.floor(Math.random() * VIDEOS.length)];
+        videoEndOutcome.current = pick.label === choice ? 'win' : 'lose';
+
         const video = videoRef.current;
-        
         if (video) {
-            video.src = pick.src; 
+            video.src = pick.src;
             video.load();
-            
             video.play().catch(e => {
                 console.error("Play metodu engellendi:", e);
                 resetGameState();
@@ -149,32 +184,69 @@ function CoinFlip() {
                     </div>
                 </div>
             )}
-            
+
             <Layout>
                 <div className='coinflip-game' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '60vh', justifyContent: 'center' }}>
                     <div className='game-coin' style={{ width: '100%' }}>
                         <div className='gsp-root' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-                            
-                            {/* CANVAS - VİDEO BURADA GÖSTERİLECEK */}
+
+                            {/* CANVAS */}
                             <canvas
                                 ref={canvasRef}
-                                width={640}
-                                height={360}
-                                style={{ 
-                                    width: '100%', 
-                                    maxWidth: '640px', 
-                                    aspectRatio: '16/9', // Boşken bile yer kaplamasını sağlar
+                                width={800}
+                                height={600}
+                                style={{
+                                    width: '100%',
+                                    maxWidth: '800px',
+                                    aspectRatio: '16/9',
                                     backgroundColor: 'transparent'
                                 }}
                             />
 
-                            {/* BUTONLAR - VİDEONUN ALTINDA */}
-                            <div className='gsp-btn-row' style={{ display: 'flex', gap: '15px' }}>
-                                <button onClick={handleCoin} disabled={isPlaying} className='gsp-coin-btn'>Yazı</button>
-                                <button onClick={handleCoin} disabled={isPlaying} className='gsp-coin-btn'>Tura</button>
+                            {/* SONUÇ MESAJI */}
+                            {result === 'win' && (
+                                <div className='result-msg result-win'>
+                                    Kazandın! +{betAmount} RAM
+                                </div>
+                            )}
+                            {result === 'lose' && (
+                                <div className='result-msg result-lose'>
+                                    Kaybettin! -{betAmount} RAM
+                                </div>
+                            )}
+
+                            {/* BAHİS INPUT */}
+                            <div className='bet-area'>
+                                <input
+                                    type='text'
+                                    inputMode='numeric'
+                                    placeholder='Bahis miktarı (RAM)'
+                                    value={betAmount}
+                                    onChange={handleBetInput}
+                                    disabled={isPlaying}
+                                    className='bet-input'
+                                />
+                                {betError && <span className='bet-error'>{betError}</span>}
                             </div>
 
-                            {/* GİZLİ VİDEO KAYNAĞI */}
+                            {/* BUTONLAR */}
+                            <div className='gsp-btn-row'>
+                                <button
+                                    onClick={() => handleCoin('yazi')}
+                                    disabled={isPlaying}
+                                    className='gsp-coin-btn'
+                                >
+                                    Yazı
+                                </button>
+                                <button
+                                    onClick={() => handleCoin('tura')}
+                                    disabled={isPlaying}
+                                    className='gsp-coin-btn'
+                                >
+                                    Tura
+                                </button>
+                            </div>
+
                             <video
                                 ref={videoRef}
                                 playsInline
@@ -187,7 +259,7 @@ function CoinFlip() {
                         </div>
                     </div>
                 </div>
-            </Layout>         
+            </Layout>
         </div>
     );
 }
