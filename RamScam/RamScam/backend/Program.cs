@@ -27,6 +27,16 @@ namespace RamScam.backend
 
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173/") // React uygulamanin adresi
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             // Add services to the container.
             #region DI kayitlari
             builder.Services.AddControllers();
@@ -51,6 +61,7 @@ namespace RamScam.backend
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseCors("AllowFrontend");
 
             app.MapGet("/api/test", () =>
             {
