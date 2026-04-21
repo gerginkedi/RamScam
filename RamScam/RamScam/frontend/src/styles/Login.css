@@ -54,6 +54,9 @@
     box-sizing: border-box;
     background-color: #191919;
     padding: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .login-container button {
@@ -92,6 +95,7 @@
     font-size: 14px;
     font-weight: 500;
     font-family: 'Exo 2', sans-serif;
+    cursor: pointer;
 }
 
 .login-container #sign-in {
@@ -106,9 +110,18 @@
     font-size: 14px;
     font-weight: 500;
     font-family: 'Exo 2', sans-serif;
+    cursor: pointer;
 }
 
 .login-container a {
     color: #fc7f3c;
     text-decoration: none;
+}
+
+.login-error {
+    color: #e05533;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0;
 }
