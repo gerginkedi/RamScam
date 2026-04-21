@@ -34,9 +34,10 @@ namespace RamScam.backend
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173/") // React uygulamanin adresi
+                    policy.WithOrigins("http://localhost:5173") 
                           .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          .AllowAnyMethod()
+                          .AllowCredentials(); 
                 });
             });
 
@@ -73,12 +74,11 @@ namespace RamScam.backend
 
             var app = builder.Build();
 
-            app.UseCors("AllowVite");
+            app.UseCors(); // Sadece boş UseCors eklersek AddDefaultPolicy'yi algılar.
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("AllowFrontend");
 
             app.MapGet("/api/test", () => new { message = "Bağlantı başarılı!" });
             app.MapPost("/api/login", async ([FromBody] RequestDTOs.LoginRequestDTO loginDto, IUserService userService) =>
