@@ -42,8 +42,12 @@ function chromaKeyRemove(imageData, config) {
 }
 
 function CoinFlip() {
-    const [blur, setBlur] = useState(true);
-    const toggleBlur = () => setBlur(false);
+    const [blur, setBlur] = useState(() => !sessionStorage.getItem('coinflip_intro_seen'));
+    
+    const toggleBlur = () => {
+    sessionStorage.setItem('coinflip_intro_seen', 'true');
+    setBlur(false);
+    };
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
