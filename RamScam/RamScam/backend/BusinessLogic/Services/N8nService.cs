@@ -63,5 +63,14 @@ namespace RamScam.backend.BusinessLogic.Services
 
             return $"Sunucuya ulaşılamadı. Hata Kodu: {(int)response.StatusCode}";
         }
+            public async Task SendRegistrationEmailAsync(string email)
+            {
+                string? url = _configuration["N8nSettings:MailWebhookUrl"];
+                if (string.IsNullOrEmpty(url)) return;
+
+                var payload = new { email = email };
+                var content = new StringContent(JsonSerializer.Serialize(payload), System.Text.Encoding.UTF8, "application/json");
+                await _httpClient.PostAsync(url, content);
+            }
+        }
     }
-}
