@@ -70,11 +70,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 60vh; /* Sayfanın ne kadarını kaplayacağını kendine göre ayarla */
+    min-height: 60vh; 
     width: 100%;
 }
 
-/* Oyun içi elementlerin alt alta (column) dizilmesi */
 .gsp-root {
     display: flex;
     flex-direction: column;
@@ -84,11 +83,11 @@
     width: 100%;
 }
 
-/* Butonların yan yana ortalanması */
 .gsp-btn-row {
     display: flex;
     justify-content: center;
-    gap: 15px; /* İki buton arasındaki boşluk */
+    gap: 15px;
+
 }
 
 .gsp-root canvas {
