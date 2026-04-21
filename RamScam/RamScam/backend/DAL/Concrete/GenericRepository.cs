@@ -23,12 +23,15 @@ namespace RamScam.backend.DAL.Concrete
         }
         #endregion
 
+
+
+
         #region Read
         public async Task<IQueryable<TEntity>> GetAllAsync()
         {
             return  _dbSet.AsQueryable();
         }
-        public async Task<IQueryable<TEntity>> GetAllUntrackedAsync()
+        public async Task<IQueryable<TEntity>> GetAllAsync_Untracked_()
         {
             return _dbSet.AsNoTracking();
         }
@@ -38,8 +41,13 @@ namespace RamScam.backend.DAL.Concrete
             return await _dbSet
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
+        public async Task<TEntity?> GetByIdAsync_Untracked_(int id)
+        {
+            return await _dbSet.AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
 
-        
+
         #endregion
 
         #region Update
@@ -56,6 +64,8 @@ namespace RamScam.backend.DAL.Concrete
             _dbSet.Remove(await GetByIdAsync(id));
             await _context.SaveChangesAsync();
         }
+
+        
 
 
         #endregion

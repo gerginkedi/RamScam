@@ -17,5 +17,15 @@ namespace RamScam.backend.DAL.Concrete
          .Where(u => u.UserId == userId && u.GameId == gameId)
          .FirstOrDefaultAsync();
         }
+
+        public async Task<UserStats> GetSelectedUserStatByUserIdAndGameIdAsync(int userId, int gameId)
+        {
+            return await _context.UserStats.Where(us => us.UserId == userId && us.GameId == gameId).FirstOrDefaultAsync();
+        }
+
+        public  IQueryable<UserStats> GetUsersStatsByUserId(int userId)
+        {
+            return _context.UserStats.Where(us => us.UserId == userId);
+        }
     }
 }

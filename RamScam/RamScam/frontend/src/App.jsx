@@ -6,6 +6,8 @@ import CoinFlip from "./pages/CoinFlip"
 import Test from "./pages/Test"
 import Crash from "./pages/Crash"
 import BlackJack from "./pages/BlackJack"
+import AiChatWidget from "./components/AiChatWidget"
+
 function App() {
   return (
     <div>
@@ -19,6 +21,10 @@ function App() {
           <Route path="/crash" element={<Crash />} />
           <Route path="/games/blackjack" element={<BlackJack />} />
         </Routes>
+
+        {/* Widget'ı buraya (Routing haricine ama tarayıcı içine) koyuyoruz. 
+            Böylece kullanıcı hangi sayfaya giderse gitsin sağ altta hep duracak! */}
+        <AiChatWidget />
       </BrowserRouter>
     </div>
   )

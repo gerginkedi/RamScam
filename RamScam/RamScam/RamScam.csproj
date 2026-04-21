@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,77 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="backend\wwwroot\css\site.css" />
-    <Content Include="backend\wwwroot\favicon.ico" />
-    <Content Include="backend\wwwroot\js\site.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <Content Include="backend\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
-    <Content Include="backend\wwwroot\lib\bootstrap\LICENSE" />
-    <Content Include="backend\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
-    <Content Include="backend\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js" />
-    <Content Include="backend\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
-    <Content Include="backend\wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-    <Content Include="backend\wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <Content Include="backend\wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-    <Content Include="backend\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <Content Include="backend\wwwroot\lib\jquery-validation\LICENSE.md" />
-    <Content Include="backend\wwwroot\lib\jquery\dist\jquery.js" />
-    <Content Include="backend\wwwroot\lib\jquery\dist\jquery.min.js" />
-    <Content Include="backend\wwwroot\lib\jquery\dist\jquery.min.map" />
-    <Content Include="backend\wwwroot\lib\jquery\dist\jquery.slim.js" />
-    <Content Include="backend\wwwroot\lib\jquery\dist\jquery.slim.min.js" />
-    <Content Include="backend\wwwroot\lib\jquery\dist\jquery.slim.min.map" />
-    <Content Include="backend\wwwroot\lib\jquery\LICENSE.txt" />
+    <Compile Remove="backend\wwwroot\**" />
+    <Content Remove="backend\wwwroot\**" />
+    <EmbeddedResource Remove="backend\wwwroot\**" />
+    <None Remove="backend\wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="frontend\src\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="10.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.5" />

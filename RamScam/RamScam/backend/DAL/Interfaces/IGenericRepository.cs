@@ -13,7 +13,7 @@ namespace RamScam.backend.DAL.Interfaces
         /// @brief returns all entities as queryable without tracking. it is used when we want to take data only for reading and we dont want to change that data. it is faster than GetAllAsync because it doesnt track changes in the entities
         /// </summary>
         /// <returns></returns>
-        Task<IQueryable<TEntity>> GetAllUntrackedAsync();
+        Task<IQueryable<TEntity>> GetAllAsync_Untracked_();
 
         /// <summary>
         /// @brief returns requested entity as entity
@@ -21,6 +21,12 @@ namespace RamScam.backend.DAL.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<TEntity?> GetByIdAsync(int requestedEntitiesId);
+        /// <summary>
+        /// @brief returns entity which has specified by id without tracking
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<TEntity?> GetByIdAsync_Untracked_(int requestedEntitiesId);
 
         /// <summary>
         /// @brief creates new entity in database 

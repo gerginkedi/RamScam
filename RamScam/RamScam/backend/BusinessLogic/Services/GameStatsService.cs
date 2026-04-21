@@ -1,4 +1,5 @@
-﻿using RamScam.backend.BusinessLogic.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using RamScam.backend.BusinessLogic.Interfaces;
 using RamScam.backend.BusinessLogic.Models.DTOs;
 using RamScam.backend.BusinessLogic.Models.Results;
 using RamScam.backend.DAL.Concrete;
@@ -21,6 +22,39 @@ namespace RamScam.backend.BusinessLogic.Services
             _globalStatsRepository = globalStatsRepository;
             _gamesRepository = gamesRepository;
             _userStatsRepository = userStatsRepository;
+        }
+
+        public async Task<GetUsersSingleStatResult> GetUsersSingleStat(int userId, int gameId)
+        {
+            GetUsersSingleStatResult dataToReturn = new GetUsersSingleStatResult();
+            if (await _userRepository.GetByIdAsync(userId) == null && await _gamesRepository.GetByIdAsync(gameId) == null) {
+                dataToReturn.Stat = null;
+                dataToReturn.IsSuccessed = false;
+                dataToReturn.Message = "User and Game not found.";
+                return dataToReturn;
+            }
+            
+            dataToReturn.Stat = await _userStatsRepository.GetSelectedUserStatByUserIdAndGameIdAsync(userId, gameId);
+            dataToReturn.Message = "User stat retrieved successfully.";
+            dataToReturn.IsSuccessed = true;
+            return dataToReturn;
+        }
+
+        public async Task<GetAllUserStatsResult> GetUserStatsByUserId(int userId)
+        {
+            GetAllUserStatsResult dataToReturn = new GetAllUserStatsResult();
+            if ( await _userRepository.GetByIdAsync_Untracked_(userId) == null)
+            {
+                dataToReturn.IsSuccessed = false;
+                dataToReturn.Message = "User not found.";
+                dataToReturn.UserStats = null;
+                return dataToReturn;
+            }
+
+            dataToReturn.IsSuccessed = true;
+            dataToReturn.Message = "User stats retrieved successfully.";
+            dataToReturn.UserStats = _userStatsRepository.GetUsersStatsByUserId(userId).ToList();
+            return dataToReturn;
         }
 
         public async Task<GameStatsResult> SaveGameResultAsync(GameResultDTO gameResult)
