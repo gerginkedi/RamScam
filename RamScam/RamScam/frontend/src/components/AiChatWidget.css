@@ -9,7 +9,7 @@
 
   /* Sağ alttaki kapalı buton görünümü */
   .ai-chat-open-btn {
-    background-color: #6c5ce7;
+    background-color: rgb(194, 84, 25);
     color: white;
     border: none;
     border-radius: 30px;
@@ -22,7 +22,7 @@
   }
 
   .ai-chat-open-btn:hover {
-    background-color: #5b4bc4;
+    background-color: rgb(160, 60, 10);
     transform: scale(1.05);
   }
 

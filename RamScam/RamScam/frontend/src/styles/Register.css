@@ -93,3 +93,19 @@
     font-weight: 500;
     font-family: 'Exo 2', sans-serif;
 }
+
+.register-error {
+    color: #e05533;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0;
+}
+
+.register-success {
+    color: rgb(194, 84, 25);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0;
+}
