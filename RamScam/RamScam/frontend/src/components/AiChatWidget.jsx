@@ -11,7 +11,6 @@ export default function AiChatWidget() {
     setLoading(true);
     try {
       // Senin yazdığın .NET Minimal API'ye (Köprüye) istek atıyor
-      // Not: Eğer portun (50793) değişirse buradan güncellemeyi unutma!
       const response = await fetch("https://localhost:50793/funfact/get-fact");
 
       if (!response.ok) {
