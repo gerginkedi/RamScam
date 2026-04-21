@@ -3,6 +3,9 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import CoinFlip from "./pages/CoinFlip"
+import Test from "./pages/Test"
+import Crash from "./pages/Crash"
+import BlackJack from "./pages/BlackJack"
 import AiChatWidget from "./components/AiChatWidget"
 
 function App() {
@@ -14,6 +17,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/games/coinflip" element={<CoinFlip />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/crash" element={<Crash />} />
+          <Route path="/games/blackjack" element={<BlackJack />} />
         </Routes>
 
         {/* Widget'ı buraya (Routing haricine ama tarayıcı içine) koyuyoruz. 

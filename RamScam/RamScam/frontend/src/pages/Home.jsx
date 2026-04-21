@@ -24,23 +24,23 @@ function Home() {
                         </div>
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="https://via.placeholder.com/80x80" alt="Game B" />
-                                <div className='game-info'><h3>Game B</h3></div>
-                                <a href='/games-b'>Oyna</a>
+                                <img src="/images/blackjack-logo.png" alt="Blackjack" className='blackjack-logo'/>
+                                <div className='game-info'><h3>Blackjack</h3></div>
+                                <a href='/games/blackjack'>Oyna</a>
                             </div>
                         </div>
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="https://via.placeholder.com/80x80" alt="Game C" />
-                                <div className='game-info'><h3>Game C</h3></div>
-                                <a href='/games-c'>Oyna</a>
+                                <img src="/images/roulette-logo.png" alt="Rulet" className='roulette-logo' />
+                                <div className='game-info'><h3>Rulet</h3></div>
+                                <a href='/games/roulette'>Oyna</a>
                             </div>
                         </div>
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="https://via.placeholder.com/80x80" alt="Game D" />
-                                <div className='game-info'><h3>Game D</h3></div>
-                                <a href='/games-d'>Oyna</a>
+                                <img src="/images/minesweeper-logo.png" alt="Mayın Tarlası" className='minesweeper-logo'/>
+                                <div className='game-info'><h3>Mayın Tarlası</h3></div>
+                                <a href='/games/minesweeper'>Oyna</a>
                             </div>
                         </div>
                         <div className="embla__slide">

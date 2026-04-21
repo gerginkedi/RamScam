@@ -42,8 +42,12 @@ function chromaKeyRemove(imageData, config) {
 }
 
 function CoinFlip() {
-    const [blur, setBlur] = useState(true);
-    const toggleBlur = () => setBlur(false);
+    const [blur, setBlur] = useState(() => !sessionStorage.getItem('coinflip_intro_seen'));
+    
+    const toggleBlur = () => {
+    sessionStorage.setItem('coinflip_intro_seen', 'true');
+    setBlur(false);
+    };
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -54,7 +58,6 @@ function CoinFlip() {
     const [isPlaying, setIsPlaying] = useState(false);
 
     // --- YENİ STATE'LER ---
-    // TODO: Backend hazır olduğunda STARTING_RAM yerine API'den çek
     const { ramBalance, addRam, removeRam } = useRam();
     const [betAmount, setBetAmount] = useState('');
     const [result, setResult] = useState(null);   // null | 'win' | 'lose'
@@ -172,7 +175,7 @@ function CoinFlip() {
     useEffect(() => {
         return () => resetGameState();
     }, [resetGameState]);
-
+    
     return (
         <div>
             {blur && (
@@ -199,19 +202,24 @@ function CoinFlip() {
                                     width: '100%',
                                     maxWidth: '800px',
                                     aspectRatio: '16/9',
-                                    backgroundColor: 'transparent'
+                                    backgroundColor: 'transparent',
+                                    margin: '20px'
                                 }}
                             />
 
                             {/* SONUÇ MESAJI */}
                             {result === 'win' && (
-                                <div className='result-msg result-win'>
-                                    Kazandın! +{betAmount} RAM
+                                <div className='result-msg result-win' >
+                                    <audio autoPlay>
+                                        <source src="/sounds/coinflip-win.mp3" type="audio/mpeg" />
+                                    </audio>
                                 </div>
                             )}
                             {result === 'lose' && (
                                 <div className='result-msg result-lose'>
-                                    Kaybettin! -{betAmount} RAM
+                                    <audio autoPlay>
+                                        <source src="/sounds/coinflip-lose.mp3" type="audio/mpeg" />
+                                    </audio>
                                 </div>
                             )}
 

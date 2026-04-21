@@ -7,17 +7,29 @@ import { useState } from 'react'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+    const handleLogin = async () => {
+      try {
+        // Giriş işlemi için API çağrısı yapabilirsiniz
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              Email: email, 
+              RawPassword: password })
+        })
 
-  const handleLogin = async () => {
-      // Giriş işlemi için API çağrısı yapabilirsiniz
-      const response = await fetch('https://localhost:50793/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-      })
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Hata:", errorData);
+            return;
+          }
 
-      const data = await response.json()
-      console.log(data)
+
+        const data = await response.json()
+        console.log(data)
+    } catch (error) {
+        console.error("Giriş hatası:", error)
+    }
   }
 
   return (
@@ -47,7 +59,7 @@ function Login() {
         </form>
         <div className="alt-row">
             <button id='forgot-password'>Şifremi Unuttum</button>
-            <button id='sign-in' onClick={handleLogin}>Giriş Yap</button>
+            <button type="button" id='sign-in' onClick={handleLogin}>Giriş Yap</button>
             <h5>Hesabınız yok mu? <a href="/register">Şimdi kaydolun</a></h5>
         </div>       
       </div>
