@@ -32,13 +32,15 @@ namespace RamScam.backend
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowVite", policy =>
-                    policy.WithOrigins("http://localhost:5173")
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173/") // React uygulamanin adresi
                           .AllowAnyHeader()
-                          .AllowAnyMethod());
+                          .AllowAnyMethod();
+                });
             });
 
-
+            // Add services to the container.
             #region DI kayitlari
             builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
@@ -75,6 +77,7 @@ namespace RamScam.backend
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors("AllowFrontend");
 
             app.MapGet("/api/test", () => new { message = "Bağlantı başarılı!" });
             app.MapPost("/api/login", async ([FromBody] RequestDTOs.LoginRequestDTO loginDto, IUserService userService) =>
