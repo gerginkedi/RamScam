@@ -10,7 +10,7 @@ export default defineConfig({
                 target: 'https://localhost:50793', // ASP.NET'in portu
                 changeOrigin: true,
                 secure: false,
-            }
+            },
         }
     }
 })
