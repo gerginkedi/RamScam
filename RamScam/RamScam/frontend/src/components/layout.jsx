@@ -1,7 +1,8 @@
 import '../styles/index.css';
 import '../styles/layout.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRam } from '../useRam';
+import { useNavigate } from 'react-router-dom';
 
 function RamSetupModal({ onConfirm }) {
     const [mb, setMb] = useState(512);
@@ -39,9 +40,17 @@ function RamSetupModal({ onConfirm }) {
 
 function Layout({ children }) {
     const { ramBalance, allocatedRam, usedRam, allocateRam } = useRam();
+    const navigate = useNavigate();
+
     const [showSetup, setShowSetup] = useState(() => {
-    return !sessionStorage.getItem('ram_setup_done');
+        return !sessionStorage.getItem('ram_setup_done');
     });
+
+    useEffect(() => {
+        if (allocatedRam && ramBalance <= 0) {
+            navigate('/crash');
+        }
+    }, [ramBalance, allocatedRam, navigate]);
 
     const handleConfirm = (mb) => {
         allocateRam(mb);
@@ -92,7 +101,7 @@ function Layout({ children }) {
                         <hr className="divider" />
                         <div className='quick-access'>
                             <a href="/games/coinflip">Coin Flip</a>
-                            <a href>Slot Makinesi</a>
+                            <a href="/games/blackjack">Blackjack</a>
                             <a href>Rulet</a>
                             <a href>Mayın Tarlası</a>
                         </div>
