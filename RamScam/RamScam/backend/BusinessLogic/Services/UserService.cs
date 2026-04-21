@@ -19,13 +19,15 @@ namespace RamScam.backend.BusinessLogic.Services
         private readonly IUserStatsRepository _userStatsRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IN8nService _n8nService;
 
-        public UserService(IUserRepository userRepository, IUserStatsRepository userStatsRepository, IPasswordHasher passwordHasher, IJwtTokenGenerator jwtTokenGenerator)
+        public UserService(IUserRepository userRepository, IUserStatsRepository userStatsRepository, IPasswordHasher passwordHasher, IJwtTokenGenerator jwtTokenGenerator, IN8nService n8nService)
         {
             _userRepository = userRepository;
             _userStatsRepository = userStatsRepository;
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _n8nService = n8nService;
         }
 
         public async Task<RegisterResult> RegisterAsync(string email, string password)
@@ -59,6 +61,9 @@ namespace RamScam.backend.BusinessLogic.Services
                     DrawCount = 0
                 });
             }
+
+            // Invoke the n8n registration hook
+            await _n8nService.SendRegistrationEmailAsync(email);
 
             return new RegisterResult()
             {
