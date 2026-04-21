@@ -20,11 +20,11 @@ namespace RamScam.backend.DAL.Concrete
 
             JwtSecurityToken token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
-                claims: new[]
-                {
+                claims:
+                [
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 new Claim(ClaimTypes.Email, email)
-                },
+                ],
                 expires: DateTime.UtcNow.AddDays(7),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );

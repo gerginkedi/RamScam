@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RamScam.backend.BusinessLogic.Interfaces;
 using RamScam.backend.BusinessLogic.Models.DTOs;
@@ -38,7 +40,6 @@ namespace RamScam.backend
 
 
             #region DI kayitlari
-            builder.Services.AddControllers();
             builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
             builder.Services.AddScoped<IGlobalStatsRepository, GlobalStatsRepository>();
@@ -47,26 +48,55 @@ namespace RamScam.backend
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IGameStatsService, GameStatsService>();
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
+            builder.Services.AddAuthorization();
+
+            builder.Services.AddAuthentication("Bearer")
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
+                            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    };
+                });
             #endregion
 
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-
-
             app.UseCors("AllowVite");
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapGet("/api/test", () => new { message = "Bağlantı başarılı!" });
+            app.MapPost("/api/login", async ([FromBody] RequestDTOs.LoginRequestDTO loginDto, IUserService userService) =>
+            {
+                LoginResult result = await userService.LoginAsync(loginDto.Email, loginDto.Password);
+                
+                if (result.IsSuccessed)
+                    return Results.Ok(result);
+                
+                return Results.BadRequest(result);
+            });
+            app.MapPost("/api/register", async ([FromBody] RequestDTOs.RegisterRequestDTO registerDto, IUserService userService) =>
+            {
+                RegisterResult result = await userService.RegisterAsync(registerDto.Email, registerDto.Password);
+                if(result.IsSuccessed)
+                    return Results.Ok(result);
 
-            //
+                return Results.BadRequest(result);
+
+            });
             app.Run();
         }
     }
+
 }

@@ -19,7 +19,7 @@ namespace RamScam.backend.BusinessLogic.Services
         private readonly IUserStatsRepository _userStatsRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        
+
         public UserService(IUserRepository userRepository, IUserStatsRepository userStatsRepository, IPasswordHasher passwordHasher, IJwtTokenGenerator jwtTokenGenerator)
         {
             _userRepository = userRepository;
@@ -45,31 +45,34 @@ namespace RamScam.backend.BusinessLogic.Services
                 };
 
 
-            
-                int gameCount = Enum.GetValues(typeof(GameType)).Length;
 
-                for (int i = 1; i <= gameCount; i++)
-                {
-                    await _userStatsRepository.CreateAsync(new UserStats
-                    {
-                        User = userToRegister,
-                        GameId = i,
-                        WinCount = 0,
-                        LoseCount = 0,
-                        DrawCount = 0
-                    });
-                }
+            int gameCount = Enum.GetValues(typeof(GameType)).Length;
 
-                return new RegisterResult()
+            for (int i = 1; i <= gameCount; i++)
+            {
+                await _userStatsRepository.CreateAsync(new UserStats
                 {
-                    IsSuccessed = true,
-                    Message = "Registration successful."
-                };
+                    User = userToRegister,
+                    GameId = i,
+                    WinCount = 0,
+                    LoseCount = 0,
+                    DrawCount = 0
+                });
+            }
+
+            return new RegisterResult()
+            {
+                IsSuccessed = true,
+                Message = "Registration successful."
+            };
 
 
         }
         public async Task<LoginResult> LoginAsync(string email, string password)
         {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                return new LoginResult() { IsSuccessed = false, Message = "Email and password required." };
+
             User? loggingInUser = await _userRepository.GetByEmailAsync(email);
 
 
@@ -98,9 +101,6 @@ namespace RamScam.backend.BusinessLogic.Services
                     IsSuccessed = false,
                     Message = "Invalid email or password.",
                 };
-
         }
-
-        
     }
 }
