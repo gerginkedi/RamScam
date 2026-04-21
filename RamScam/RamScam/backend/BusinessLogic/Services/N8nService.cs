@@ -35,20 +35,33 @@ namespace RamScam.backend.BusinessLogic.Services
             {
                 string jsonString = await response.Content.ReadAsStringAsync();
 
-                FunFactResponse? result = JsonSerializer.Deserialize<FunFactResponse>(jsonString, new JsonSerializerOptions
+                try 
                 {
-                    PropertyNameCaseInsensitive = true
-                });
+                    FunFactResponse? result = JsonSerializer.Deserialize<FunFactResponse>(jsonString, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
 
-                if (result != null && result.Fact != null)
+                    if (result != null && !string.IsNullOrWhiteSpace(result.Fact))
+                    {
+                        return result.Fact;
+                    }
+                }
+                catch (JsonException)
                 {
-                    return result.Fact;
+                    // JSON'a çeviremezse C#'ın çökmesini engelle 
+                }
+
+                // Ekrana {{ { "Fact": "..." } }} gibi süslü metin geliyorsa dahi bozmadan döndür
+                if (!string.IsNullOrWhiteSpace(jsonString))
+                {
+                    return jsonString;
                 }
 
                 return "Şu an şans melekleri meşgul, bilgi alınamadı!";
             }
 
-            return "Sunucuya ulaşılamadı.";
+            return $"Sunucuya ulaşılamadı. Hata Kodu: {(int)response.StatusCode}";
         }
     }
 }
