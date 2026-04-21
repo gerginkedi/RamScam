@@ -48,6 +48,7 @@ namespace RamScam.backend
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IGameStatsService, GameStatsService>();
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            builder.Services.AddHttpClient<IN8nService, N8nService>();
 
             builder.Services.AddAuthorization();
 
@@ -94,6 +95,12 @@ namespace RamScam.backend
 
                 return Results.BadRequest(result);
 
+            });
+            // Frontend Fun Fact çekeceği endpoint
+            app.MapGet("/funfact/get-fact", async (IN8nService n8nService) =>
+            {
+                string fact = await n8nService.GetFunFactAsync();
+                return Results.Ok(new { fact = fact });
             });
             app.Run();
             
