@@ -21,6 +21,7 @@ namespace RamScam.backend
             var builder = WebApplication.CreateBuilder(args);
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString, sqlOptions => sqlOptions.EnableRetryOnFailure(
@@ -32,12 +33,11 @@ namespace RamScam.backend
 
             builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(policy =>
+                options.AddPolicy("AllowVite", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173") 
+                    policy.WithOrigins("http://localhost:5173")
                           .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials(); 
+                          .AllowAnyMethod();
                 });
             });
 
@@ -74,7 +74,7 @@ namespace RamScam.backend
 
             var app = builder.Build();
 
-            app.UseCors(); // Sadece boş UseCors eklersek AddDefaultPolicy'yi algılar.
+            app.UseCors("AllowVite"); // Sadece boş UseCors eklersek AddDefaultPolicy'yi algılar.
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
@@ -99,6 +99,8 @@ namespace RamScam.backend
                 return Results.BadRequest(result);
 
             });
+
+
             // Frontend Fun Fact çekeceği endpoint
             app.MapGet("/funfact/get-fact", async (IN8nService n8nService) =>
             {
