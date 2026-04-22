@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import Layout from '../components/layout';
 import { useRam } from '../useRam';
-import '../styles/Blackjack.css';
+import '../styles/BlackJack.css';
 import '../styles/CoinFlip.css';
 
 const SUITS = ['♠', '♥', '♦', '♣'];
