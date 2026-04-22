@@ -1,0 +1,126 @@
+.games-root {
+    padding: 40px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.games-title {
+    color: rgb(194, 84, 25);
+    font-size: 2rem;
+    margin-bottom: 32px;
+    letter-spacing: 2px;
+}
+
+.games-section-label {
+    color: #aaa;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.games-active-section {
+    margin-bottom: 48px;
+}
+
+.games-inactive-section {
+    opacity: 0.5;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.gs-card-link {
+    text-decoration: none;
+}
+
+.gs-card {
+    background: #1e1e1e;
+    border: 1px solid rgba(194, 84, 25, 0.3);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.gs-card:hover {
+    border-color: rgb(194, 84, 25);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(194, 84, 25, 0.15);
+}
+
+.gs-card-inactive {
+    cursor: default;
+}
+
+.gs-card-inactive:hover {
+    border-color: rgba(194, 84, 25, 0.3);
+    transform: none;
+    box-shadow: none;
+}
+
+.gs-card-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gs-card-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.gs-card-logo-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #555;
+}
+
+.gs-card-info {
+    text-align: center;
+}
+
+.gs-card-info h3 {
+    color: rgb(194, 84, 25);
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+}
+
+.gs-card-info p {
+    color: #888;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.gs-card-soon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    color: #666;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

@@ -9,6 +9,26 @@ function Home() {
         AutoScroll({ speed: 1, stopOnInteraction: false, stopOnMouseEnter: true })
     ]);
 
+    const FOR_YOU_GAMES = [
+    { name: 'Coin Flip', href: '/games/coinflip', logo: '/images/coinflip-logo.png' },
+    { name: 'Blackjack', href: '/games/blackjack', logo: '/images/blackjack-logo.png' },
+];
+
+    // Seed ile karıştırır — her kullanıcıya farklı ama tutarlı sıra (Sunum icin gecici cozum)
+    const seededShuffle = (arr) => {
+        const token = localStorage.getItem('token') || 'guest';
+        let seed = token.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        const result = [...arr];
+        for (let i = result.length - 1; i > 0; i--) {
+            seed = (seed * 1664525 + 1013904223) & 0x7fffffff;
+            const j = seed % (i + 1);
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+    };
+
+    const shuffled = seededShuffle(FOR_YOU_GAMES);
+
     return (
         <Layout>
             <div className="top-games-swiper">
@@ -55,19 +75,14 @@ function Home() {
             </div>
             <div className='for-you'>
                 <h2>Senin İçin</h2>
-                <div className='game-list'> 
-                    <div className='game-card'>
-                        <div className='side-info-container'>
-                            <div className='game-info'><h3>Game A</h3></div>
-                        </div>
-                        <div className='middle-game-info-container'>
-                            <div className='game-info'><h3>Game B</h3></div>
-                            <div className='game-info'><h3>Game C</h3></div>
-                        </div>
-                        <div className='side-info-container'>
-                            <div className='game-info'><h3>Game D</h3></div>
-                        </div>
-                    </div>
+                <div className='game-list'>
+                    {shuffled.map((game, idx) => (
+                        <a key={idx} href={game.href} className='fy-card'>
+                            <img src={game.logo} alt={game.name} />
+                            <div className='game-info'><h3>{game.name}</h3></div>
+                            <span>Oyna</span>
+                        </a>
+                    ))}
                 </div>
             </div>
             <div className='activity-feed'>

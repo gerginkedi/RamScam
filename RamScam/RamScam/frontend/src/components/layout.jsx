@@ -41,6 +41,7 @@ function RamSetupModal({ onConfirm }) {
 function Layout({ children }) {
     const { ramBalance, allocatedRam, usedRam, allocateRam } = useRam();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
 
     const [showSetup, setShowSetup] = useState(() => {
         return !sessionStorage.getItem('ram_setup_done');
@@ -80,12 +81,25 @@ function Layout({ children }) {
                     )}
                 </div>
                 <div className='auth-container'>
-                    <div className="login-btn">
-                        <a href="/login">Giriş Yap</a>
-                    </div>
-                    <div className='register-btn'>
-                        <a href="/register">Kaydol</a>
-                    </div>
+                    {!token ? (
+                        <>
+                            <div className="login-btn">
+                                <a href="/login">Giriş Yap</a>
+                            </div>
+                            <div className='register-btn'>
+                                <a href="/register">Kaydol</a>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="logout-btn">
+                            <button onClick={() => {
+                                localStorage.removeItem('token');
+                                window.location.href = '/login';
+                            }}>
+                                Çıkış Yap
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 
