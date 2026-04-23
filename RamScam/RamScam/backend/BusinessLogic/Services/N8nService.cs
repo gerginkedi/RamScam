@@ -24,18 +24,16 @@ namespace RamScam.backend.BusinessLogic.Services
             string? url = _configuration["N8nSettings:WebhookUrl"];
 
             if (string.IsNullOrEmpty(url))
-            {
                 return "Sistem ayarlarında n8n adresi bulunamadı!";
-            }
 
-            
+
             HttpResponseMessage response = await _httpClient.PostAsync(url, null);
 
             if (response.IsSuccessStatusCode)
             {
                 string jsonString = await response.Content.ReadAsStringAsync();
 
-                try 
+                try
                 {
                     FunFactResponse? result = JsonSerializer.Deserialize<FunFactResponse>(jsonString, new JsonSerializerOptions
                     {
@@ -43,9 +41,7 @@ namespace RamScam.backend.BusinessLogic.Services
                     });
 
                     if (result != null && !string.IsNullOrWhiteSpace(result.Fact))
-                    {
                         return result.Fact;
-                    }
                 }
                 catch (JsonException)
                 {
@@ -54,23 +50,22 @@ namespace RamScam.backend.BusinessLogic.Services
 
                 // Ekrana {{ { "Fact": "..." } }} gibi süslü metin geliyorsa dahi bozmadan döndür
                 if (!string.IsNullOrWhiteSpace(jsonString))
-                {
                     return jsonString;
-                }
 
                 return "Şu an şans melekleri meşgul, bilgi alınamadı!";
             }
 
             return $"Sunucuya ulaşılamadı. Hata Kodu: {(int)response.StatusCode}";
         }
-            public async Task SendRegistrationEmailAsync(string email)
-            {
-                string? url = _configuration["N8nSettings:MailWebhookUrl"];
-                if (string.IsNullOrEmpty(url)) return;
+        public async Task SendRegistrationEmailAsync(string email)
+        {
+            string? url = _configuration["N8nSettings:MailWebhookUrl"];
+            if (string.IsNullOrEmpty(url))
+                return;
 
-                var payload = new { email = email };
-                var content = new StringContent(JsonSerializer.Serialize(payload), System.Text.Encoding.UTF8, "application/json");
-                await _httpClient.PostAsync(url, content);
-            }
+            var payload = new { email = email };
+            var content = new StringContent(JsonSerializer.Serialize(payload), System.Text.Encoding.UTF8, "application/json");
+            await _httpClient.PostAsync(url, content);
         }
     }
+}
