@@ -2,6 +2,8 @@ import '../styles/index.css';
 import '../styles/layout.css';
 import { useEffect, useState } from 'react';
 import { useRam } from '../useRam';
+import { useShards } from '../useShards';
+import { useBuffs } from '../useBuffs';
 import { useNavigate } from 'react-router-dom';
 
 function RamSetupModal({ onConfirm }) {
@@ -40,6 +42,8 @@ function RamSetupModal({ onConfirm }) {
 
 function Layout({ children }) {
     const { ramBalance, allocatedRam, usedRam, allocateRam } = useRam();
+    const { shardBalance } = useShards();
+    const { activeBuffs } = useBuffs();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -64,6 +68,8 @@ function Layout({ children }) {
         return mb >= 1024 ? (mb / 1024).toFixed(1) + ' GB' : mb + ' MB';
     };
 
+    const activeBuffList = Object.values(activeBuffs);
+
     return (
         <div>
             {showSetup && <RamSetupModal onConfirm={handleConfirm} />}
@@ -72,14 +78,28 @@ function Layout({ children }) {
                 <div className="home-btn">
                     <button><a href="/home">RamScam</a></button>
                 </div>
+
                 <div className="balance-display">
                     <h2>Chip: {ramBalance} ◈</h2>
+                    <h2 className='shard-display'>Shard: {shardBalance} ⟡</h2>
                     {allocatedRam && (
                         <h2 className='hafiza-display'>
                             Hafıza: <span className='hafiza-used'>{formatRam(usedRam)}</span> / {formatRam(allocatedRam)}
                         </h2>
                     )}
+
+                    {activeBuffList.length > 0 && (
+                        <div className='active-buffs'>
+                            {activeBuffList.map(buff => (
+                                <div key={buff.id} className='active-buff-icon' title={`${buff.name} — ${buff.remainingUses} ${buff.maxUses === 1 ? 'kullanım' : 'el'} kaldı`}>
+                                    <span>{buff.icon}</span>
+                                    <span className='active-buff-uses'>{buff.remainingUses}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
+
                 <div className='auth-container'>
                     {!token ? (
                         <>
@@ -123,6 +143,7 @@ function Layout({ children }) {
                         <hr className="divider" />
                         <div className='other-links'>
                             <a href>İstatistikler</a>
+                            <a href="/shop">Mağaza</a>
                             <a href>Cansız Destek</a>
                             <a href>Ayarlar</a>
                         </div>

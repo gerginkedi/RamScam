@@ -3,11 +3,31 @@ import '../styles/Home.css';
 import Layout from '../components/layout';
 import useEmblaCarousel from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
+import { getActivities } from '../utils/activity';
+import { useEffect, useState } from 'react';
 
 function Home() {
     const [emblaRef] = useEmblaCarousel({ loop: true }, [
         AutoScroll({ speed: 1, stopOnInteraction: false, stopOnMouseEnter: true })
     ]);
+
+    const [activities, setActivities] = useState(getActivities());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActivities(getActivities());
+        }, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const formatActivity = (a) => {
+        const time = new Date(a.timestamp).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        if (a.result === 'win') return `${a.game}'de +${a.amount} Chip kazandın • ${time}`;
+        if (a.result === 'blackjack') return `${a.game}'de Blackjack! +${a.amount} Chip • ${time}`;
+        if (a.result === 'lose') return `${a.game}'de -${a.amount} Chip kaybettin • ${time}`;
+        if (a.result === 'push') return `${a.game}'de berabere • ${time}`;
+        return '';
+    };
 
     const FOR_YOU_GAMES = [
     { name: 'Coin Flip', href: '/games/coinflip', logo: '/images/coinflip-logo.png' },
@@ -87,6 +107,17 @@ function Home() {
             </div>
             <div className='activity-feed'>
                 <h2>Aktivite Kaydı</h2>
+                {activities.length === 0 ? (
+                    <p className='activity-empty'>Henüz aktivite yok. Oynamaya başla!</p>
+                ) : (
+                    <div className='activity-list'>
+                        {activities.map((a, idx) => (
+                            <div key={idx} className={`activity-card activity-${a.result}`}>
+                                {formatActivity(a)}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </Layout>
     )

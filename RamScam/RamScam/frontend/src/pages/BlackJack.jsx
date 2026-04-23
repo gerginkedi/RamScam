@@ -3,6 +3,9 @@ import Layout from '../components/layout';
 import { useRam } from '../useRam';
 import '../styles/BlackJack.css';
 import '../styles/CoinFlip.css';
+import { addActivity } from '../utils/activity';
+import { useBuffs } from '../useBuffs';
+import { useShards } from '../useShards';
 
 const SUITS = ['♠', '♥', '♦', '♣'];
 const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -72,11 +75,12 @@ const PHASE = {
 
 function Blackjack() {
     const { ramBalance, addRam, removeRam } = useRam();
+    const { hasBuff, consumeBuff } = useBuffs();
+    const { addShardFromWin } = useShards();
 
     const [showIntro, setShowIntro] = useState(() =>
         !sessionStorage.getItem('blackjack_intro_seen')
     );
-
     const [deck, setDeck] = useState([]);
     const [playerHand, setPlayerHand] = useState([]);
     const [dealerHand, setDealerHand] = useState([]);
@@ -96,6 +100,37 @@ function Blackjack() {
         const val = e.target.value;
         if (val === '' || /^\d+$/.test(val)) setBetAmount(val);
     };
+
+    // Kazanç işlemleri — buff'ları uygula
+    const applyWin = useCallback((bet, activityType = 'win') => {
+        const chipGain = hasBuff('CHIP_BOOST') ? Math.floor(bet * 1.5) : bet;
+        addRam(chipGain);
+        if (hasBuff('CHIP_BOOST')) consumeBuff('CHIP_BOOST');
+
+        const shardMult = hasBuff('SHARD_BOOST') ? 1.2 : 1;
+        addShardFromWin(chipGain, shardMult);
+        if (hasBuff('SHARD_BOOST')) consumeBuff('SHARD_BOOST');
+
+        addActivity('Blackjack', activityType, chipGain);
+        setResult(activityType);
+    }, [hasBuff, consumeBuff, addRam, addShardFromWin]);
+
+    // Kayıp işlemleri — Joker ve RAM Shield uygula
+    const applyLose = useCallback((bet) => {
+        if (hasBuff('JOKER')) {
+            consumeBuff('JOKER');
+            addActivity('Blackjack', 'push', 0);
+            setResult('push');
+            return;
+        }
+
+        const ramLoss = hasBuff('RAM_SHIELD') ? Math.floor(bet * 0.5) : bet;
+        removeRam(ramLoss);
+        if (hasBuff('RAM_SHIELD')) consumeBuff('RAM_SHIELD');
+
+        addActivity('Blackjack', 'lose', ramLoss);
+        setResult('lose');
+    }, [hasBuff, consumeBuff, removeRam]);
 
     const deal = useCallback(() => {
         const bet = parseInt(betAmount);
@@ -121,16 +156,16 @@ function Blackjack() {
 
         if (handTotal(p) === 21) {
             if (handTotal(d) === 21) {
+                addActivity('Blackjack', 'push', 0);
                 setResult('push');
             } else {
-                addRam(Math.floor(bet * 1.5));
-                setResult('blackjack');
+                applyWin(Math.floor(bet * 1.5), 'blackjack');
             }
             setPhase(PHASE.DONE);
         } else {
             setPhase(PHASE.PLAYING);
         }
-    }, [betAmount, ramBalance, addRam]);
+    }, [betAmount, ramBalance, applyWin]);
 
     const hit = useCallback(() => {
         const newCard = deck[0];
@@ -140,11 +175,10 @@ function Blackjack() {
         setPlayerHand(newHand);
 
         if (handTotal(newHand) > 21) {
-            removeRam(parseInt(betAmount));
-            setResult('lose');
+            applyLose(parseInt(betAmount));
             setPhase(PHASE.DONE);
         }
-    }, [deck, playerHand, betAmount, removeRam]);
+    }, [deck, playerHand, betAmount, applyLose]);
 
     const stand = useCallback(() => {
         const bet = parseInt(betAmount);
@@ -163,17 +197,16 @@ function Blackjack() {
         const dealerTotal = handTotal(dHand);
 
         if (dealerTotal > 21 || playerTotal > dealerTotal) {
-            addRam(bet);
-            setResult('win');
+            applyWin(bet, 'win');
         } else if (playerTotal === dealerTotal) {
+            addActivity('Blackjack', 'push', 0);
             setResult('push');
         } else {
-            removeRam(bet);
-            setResult('lose');
+            applyLose(bet);
         }
 
         setPhase(PHASE.DONE);
-    }, [deck, dealerHand, playerHand, betAmount, addRam, removeRam]);
+    }, [deck, dealerHand, playerHand, betAmount, applyWin, applyLose]);
 
     const reset = () => {
         setPhase(PHASE.BETTING);
@@ -233,10 +266,25 @@ function Blackjack() {
 
                     {result && (
                         <div className={`bj-result bj-result-${result}`}>
-                            {result === 'win'       && `Kazandın! +${betAmount} Chip`}
-                            {result === 'blackjack' && `Blackjack! +${Math.floor(parseInt(betAmount) * 1.5)} Chip`}
-                            {result === 'lose'      && `Kaybettin! -${betAmount} Chip`}
-                            {result === 'push'      && `Berabere! Bahis iade edildi.`}
+                            {result === 'win' && (
+                                <>
+                                    <audio autoPlay><source src="/sounds/coinflip-win.mp3" type="audio/mpeg" /></audio>
+                                    {`Kazandın! +${betAmount} Chip`}
+                                </>
+                            )}
+                            {result === 'blackjack' && (
+                                <>
+                                    <audio autoPlay><source src="/sounds/coinflip-win.mp3" type="audio/mpeg" /></audio>
+                                    {`Blackjack! +${Math.floor(parseInt(betAmount) * 1.5)} Chip`}
+                                </>
+                            )}
+                            {result === 'lose' && (
+                                <>
+                                    <audio autoPlay><source src="/sounds/coinflip-lose.mp3" type="audio/mpeg" /></audio>
+                                    {`Kaybettin! -${betAmount} Chip`}
+                                </>
+                            )}
+                            {result === 'push' && `Berabere! Bahis iade edildi.`}
                         </div>
                     )}
 

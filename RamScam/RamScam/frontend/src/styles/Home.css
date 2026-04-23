@@ -186,3 +186,68 @@
     border-radius: 4px;
     padding: 4px 12px;
 }
+
+.embla-activity {
+    margin-top: 12px;
+}
+
+.activity-slide {
+    flex: 0 0 auto;
+    min-width: 320px;
+    margin-right: 12px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scroll-behavior: smooth;
+}
+
+.activity-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.activity-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.activity-list::-webkit-scrollbar-thumb {
+    background: rgba(194, 84, 25, 0.4);
+    border-radius: 2px;
+}
+
+.activity-card {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #1e1e1e;
+}
+
+.activity-win, .activity-blackjack {
+    border-color: rgba(194, 84, 25, 0.4);
+    color: rgb(194, 84, 25);
+}
+
+.activity-lose {
+    border-color: rgba(180, 30, 30, 0.4);
+    color: #e05533;
+}
+
+.activity-push {
+    border-color: rgba(150,150,150,0.2);
+    color: #888;
+}
+
+.activity-empty {
+    color: #555;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    margin-top: 12px;
+}
