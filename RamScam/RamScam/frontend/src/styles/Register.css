@@ -109,3 +109,22 @@
     text-align: center;
     margin: 0;
 }
+
+.alt-row button {
+    cursor: pointer;
+}
+
+.alt-row h5 {
+    color: #aaa;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.alt-row a {
+    color: rgb(194, 84, 25);
+    text-decoration: none;
+}

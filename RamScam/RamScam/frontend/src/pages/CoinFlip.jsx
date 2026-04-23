@@ -2,8 +2,11 @@ import '../styles/layout.css';
 import '../styles/index.css';
 import '../styles/CoinFlip.css';
 import Layout from '../components/layout';
+import { addActivity } from '../utils/activity';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRam } from '../useRam'
+import { useBuffs } from '../useBuffs';
+import { useShards } from '../useShards';
 
 const CHROMA_CONFIG = {
     keyColor: { r: 0, g: 180, b: 0 },
@@ -43,7 +46,9 @@ function chromaKeyRemove(imageData, config) {
 
 function CoinFlip() {
     const [blur, setBlur] = useState(() => !sessionStorage.getItem('coinflip_intro_seen'));
-    
+    const { hasBuff, consumeBuff } = useBuffs();
+    const { addShardFromWin } = useShards();
+
     const toggleBlur = () => {
     sessionStorage.setItem('coinflip_intro_seen', 'true');
     setBlur(false);
@@ -116,8 +121,32 @@ function CoinFlip() {
         const outcome = videoEndOutcome.current;
         const bet = parseInt(betAmount);
 
-        if (outcome === 'win') addRam(bet);
-        else if (outcome === 'lose') removeRam(bet);
+        if (outcome === 'win') {
+            const chipGain = hasBuff('CHIP_BOOST') ? Math.floor(bet * 1.5) : bet;
+            addRam(chipGain);
+            if (hasBuff('CHIP_BOOST')) consumeBuff('CHIP_BOOST');
+
+            const shardMult = hasBuff('SHARD_BOOST') ? 1.2 : 1;
+            addShardFromWin(chipGain, shardMult);
+            if (hasBuff('SHARD_BOOST')) consumeBuff('SHARD_BOOST');
+
+            addActivity('Coin Flip', 'win', chipGain);
+
+        } else if (outcome === 'lose') {
+            if (hasBuff('JOKER')) {
+                consumeBuff('JOKER');
+                addActivity('Coin Flip', 'push', 0);
+                setResult('push');
+                resetGameState();
+                return;
+            }
+
+            const ramLoss = hasBuff('RAM_SHIELD') ? Math.floor(bet * 0.5) : bet;
+            removeRam(ramLoss);
+            if (hasBuff('RAM_SHIELD')) consumeBuff('RAM_SHIELD');
+
+            addActivity('Coin Flip', 'lose', ramLoss);
+        }
 
         setResult(outcome);
         resetGameState();

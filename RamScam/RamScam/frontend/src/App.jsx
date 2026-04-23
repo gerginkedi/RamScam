@@ -7,6 +7,8 @@ import Test from "./pages/Test"
 import Crash from "./pages/Crash"
 import BlackJack from "./pages/BlackJack"
 import AiChatWidget from "./components/AiChatWidget"
+import Games from "./pages/Games"
+import Shop from "./pages/Shop"
 
 function ProtectedRoute({ children }) {
     const token = localStorage.getItem('token')
@@ -30,11 +32,13 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                    <Route path="/games" element={<ProtectedRoute><Games /></ProtectedRoute>} />
                     <Route path="/games/coinflip" element={<ProtectedRoute><CoinFlip /></ProtectedRoute>} />
                     <Route path="/games/blackjack" element={<ProtectedRoute><BlackJack /></ProtectedRoute>} />
                     <Route path="/crash" element={<ProtectedRoute><Crash /></ProtectedRoute>} />
                     <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
                     <Route path="*" element={<Navigate to="/login" replace />} />
+                    <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
                 </Routes>
                 <WidgetWrapper />
             </BrowserRouter>

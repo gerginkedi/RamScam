@@ -70,20 +70,26 @@
 .balance-display {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
+    gap: 16px;
 }
 
 .balance-display h2 {
     font-family: 'Exo 2', sans-serif;
     color: rgb(194, 84, 25);
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
 }
 
 .hafiza-display {
-    margin-left: 10px;
     color: rgb(194, 84, 25);
     font-family: 'Exo 2', sans-serif;
-    padding-top: 1px;
-    padding-bottom: 1px;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
 }
 
 .hafiza-display .hafiza-used {
@@ -243,4 +249,58 @@
 
 .ram-setup-btn:hover {
     background-color: rgb(160, 60, 10);
+}
+
+.logout-btn button{
+    border: 1px solid rgb(194, 84, 25);
+    background-color: rgb(194, 84, 25);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    font-family: 'Exo 2', sans-serif;
+    cursor: pointer;
+}
+
+.logout-btn button:hover {
+    background-color: rgb(160, 60, 10);
+    transition: background-color 0.2s;
+}
+
+.shard-display {
+    color: rgb(194, 84, 25);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.active-buffs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 16px;
+}
+
+.active-buff-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(194, 84, 25, 0.12);
+    border: 1px solid rgba(194, 84, 25, 0.4);
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: default;
+    font-size: 1rem;
+    position: relative;
+}
+
+.active-buff-uses {
+    font-size: 0.65rem;
+    color: rgb(194, 84, 25);
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    line-height: 1;
 }
