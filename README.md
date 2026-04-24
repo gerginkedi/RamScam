@@ -1,10 +1,10 @@
-# 🎰 RamScam
+#  RamScam
 
 RamScam, sıradan bir şans oyunu platformu olmanın çok ötesinde, kullanıcıların "gerçek donanım kaynaklarını" (RAM) risk ederek oynadığı, rogue-like mekaniklerine sahip, yapay zeka destekli benzersiz bir web uygulamasıdır. 
 
 Kullanıcılar sisteme girdiklerinde risk etmek istedikleri RAM miktarını belirlerler. Projenin imza özelliği olan özel istemci taraflı (client-side) betikler sayesinde, oyun kaybedildikçe tarayıcı belleği kasıtlı ve kontrollü bir şekilde doldurulur. Sınır aşıldığında ise sistem sahte bir çökme ekranıyla "Run" (Tur) işlemini sonlandırır.
 
-## 🚀 Teknolojiler ve Mimari
+##  Teknolojiler ve Mimari
 
 * **Backend:** C#, .NET 10, ASP.NET Core Minimal API
 * **Veritabanı & ORM:** Microsoft SQL Server, Entity Framework Core (EF Core)
@@ -12,18 +12,18 @@ Kullanıcılar sisteme girdiklerinde risk etmek istedikleri RAM miktarını beli
 * **Frontend:** Vite, React, TypeScript/JavaScript
 * **Otomasyon:** n8n,Azure
 
-## 🎲 Oyun Mekanikleri
+##  Oyun Mekanikleri
 
 * **The "Run" (Tur) Sistemi:** Kullanıcının başlangıç çipi olarak yatırdığı RAM miktarından, tamamen batana kadar geçen sürece bir "Run" denir. Her tur **Seed** değeri ile oluşturulur.
 * **Canlı RAM Tüketimi:** Tarayıcı tarafında çalışan özel bir algoritma, donanım RAM miktarını anlık olarak manipüle eder (Maks. 2GB). Kazanıldıkça bellek serbest bırakılır, kaybedildikçe şişirilir.
 * **MMR ve Rogue-like:** Galibiyet oranına (Winrate) bağlı olarak dinamik bir MMR sistemi devrededir. Tur bitiminde MMR sıfırlanır.
 
-## 🗄️ Veritabanı Şeması
+##  Veritabanı Şeması
 
 Projemizin ilişkisel veritabanı modeli aşağıdaki gibidir:
 ![Database diagram](Images/DbScheme.png)
 
-## 🛠️ Kurulum ve Çalıştırma Adımları
+##  Kurulum ve Çalıştırma Adımları
 
 Projeyi kendi ortamınızda (Localhost) test etmek için aşağıdaki adımları izleyin.
 
