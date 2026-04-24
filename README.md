@@ -9,7 +9,7 @@ Kullanıcılar sisteme girdiklerinde risk etmek istedikleri RAM miktarını beli
 * **Backend:** C#, .NET 10, ASP.NET Core Minimal API
 * **Veritabanı & ORM:** Microsoft SQL Server, Entity Framework Core (EF Core)
 * **Güvenlik:** JWT (JSON Web Token) ile oturum yönetimi, BCrypt ile şifreleme
-* **Frontend:** Vite, React, TypeScript/JavaScript
+* **Frontend:** Vite, React, JavaScript, HTML, CSS
 * **Otomasyon:** n8n,Azure
 
 ##  Oyun Mekanikleri
