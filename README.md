@@ -29,13 +29,14 @@ Projeyi kendi ortamınızda (Localhost) test etmek için aşağıdaki adımları
 
 ### 1. Backend & Veritabanı Kurulumu
 
-Projeyi klonladıktan sonra API dizinine geçin ve veritabanını oluşturun:
+Projeyi klonlayın sonrasında backend dizinine geçin ve veritabanını oluşturun:
 
 ```bash
 git clone https://github.com/gerginkedi/RamScam.git
 ```
+RamScam.csproj dosyasının bulunduğu klasörde sırasıyla komutları çalıştırın:
 ```bash
-cd RamScam/backend
+dotnet build
 dotnet ef database update
 ```
 
