@@ -24,7 +24,7 @@ const GAMES = [
         id: 3,
         name: 'Rulet',
         description: 'Çark dönüyor, şans seninle mi?',
-        logo: null,
+        logo: '/images/roulette-logo.png',
         href: null,
         active: false,
     },
@@ -32,10 +32,18 @@ const GAMES = [
         id: 4,
         name: 'Mayın Tarlası',
         description: 'Her adım bir risk.',
-        logo: null,
+        logo: '/images/minesweeper-logo.png',
         href: null,
         active: false,
     },
+    {
+        id: 5,
+        name: 'Taş Kağıt Makas',
+        description: 'Çocukluğunun klasik oyunu, şimdi stratejiyle.',
+        logo: null,
+        href: null,
+        active: false,
+    }
 ];
 
 function GameCard({ game }) {

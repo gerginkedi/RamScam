@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "RamScam_DB_2024!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'RamScam_DB_2024!' -Q 'SELECT 1' -No || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+      start_period: 30s
+
+  backend:
+    image: kullaniciadi/ramscam-backend:latest
+    environment:
+      ASPNETCORE_URLS: "http://+:8080"
+      ConnectionStrings__DefaultConnection: "Server=db;Database=gambling;User Id=sa;Password=RamScam_DB_2024!;TrustServerCertificate=True;"
+      Jwt__Key: "3kvi94lg50ma2k3kjgnklakw0it7knan"
+      Jwt__Issuer: "RamScamApp"
+      N8nSettings__WebhookUrl: "http://51.103.216.246:5678/webhook/funfact"
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: kullaniciadi/ramscam-frontend:latest
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mssql_data:

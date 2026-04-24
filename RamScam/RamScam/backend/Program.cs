@@ -107,6 +107,13 @@ namespace RamScam.backend
                 string fact = await n8nService.GetFunFactAsync();
                 return Results.Ok(new { fact = fact });
             });
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate();
+            }
+
             app.Run();
             
         }

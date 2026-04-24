@@ -11,7 +11,7 @@ export default function AiChatWidget() {
     setLoading(true);
     try {
       // Senin yazdığın .NET Minimal API'ye (Köprüye) istek atıyor
-      const response = await fetch("https://localhost:50793/funfact/get-fact");
+      const response = await fetch("/funfact/get-fact"); // Docker disinda kullanim icin configurasyon: https://localhost:8080/funfact/get-fact
 
       if (!response.ok) {
         throw new Error("API'den yanıt alınamadı");

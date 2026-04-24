@@ -77,6 +77,7 @@ function Layout({ children }) {
             <div className='top-bar'>
                 <div className="home-btn">
                     <button><a href="/home">RamScam</a></button>
+                    <span>Version 0.1.1</span>
                 </div>
 
                 <div className="balance-display">
@@ -138,6 +139,7 @@ function Layout({ children }) {
                             <a href="/games/blackjack">Blackjack</a>
                             <a href>Rulet</a>
                             <a href>Mayın Tarlası</a>
+                            <a href>Taş Kağıt Makas</a>
                         </div>
                         <br /><br />
                         <hr className="divider" />
