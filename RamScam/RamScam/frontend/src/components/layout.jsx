@@ -77,6 +77,7 @@ function Layout({ children }) {
             <div className='top-bar'>
                 <div className="home-btn">
                     <button><a href="/home">RamScam</a></button>
+                    <span>Version 0.1.1</span>
                 </div>
 
                 <div className="balance-display">
