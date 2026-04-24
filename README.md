@@ -1,3 +1,10 @@
+# herseyden onemlisi gorseller
+![Database diagram](Images/292578.jpg)
+![Database diagram](Images/gibibi.jpg)
+![Database diagram](Images/floppa.jpg)
+
+
+
 #  RamScam
 
 RamScam, sıradan bir şans oyunu platformu olmanın çok ötesinde, kullanıcıların "gerçek donanım kaynaklarını" (RAM) risk ederek oynadığı, rogue-like mekaniklerine sahip, yapay zeka destekli benzersiz bir web uygulamasıdır. 
