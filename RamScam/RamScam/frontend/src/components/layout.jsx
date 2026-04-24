@@ -138,6 +138,7 @@ function Layout({ children }) {
                             <a href="/games/blackjack">Blackjack</a>
                             <a href>Rulet</a>
                             <a href>Mayın Tarlası</a>
+                            <a href>Taş Kağıt Makas</a>
                         </div>
                         <br /><br />
                         <hr className="divider" />

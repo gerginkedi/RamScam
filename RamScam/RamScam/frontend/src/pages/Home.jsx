@@ -85,9 +85,9 @@ function Home() {
                         </div>
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="https://via.placeholder.com/80x80" alt="Game D" />
-                                <div className='game-info'><h3>Game E</h3></div>
-                                <a href='/games-e'>Oyna</a>
+                                <img src="/images/rock-paper-scissors-logo.png" alt="Taş Kağıt Makas" className='rock-paper-scissors-logo'/>
+                                <div className='game-info'><h3>Taş Kağıt Makas</h3></div>
+                                <a href='/games/rock-paper-scissors'>Oyna</a>
                             </div>
                         </div>                        
                     </div>
