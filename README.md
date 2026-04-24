@@ -1,49 +1,79 @@
-# RamScam
+# 🎰 RamScam
 
-**run** - kullanıcıcı çiplerini almak için RAM miktarını girdiği andan batana kadar olan sürece bir "run" denir.
+RamScam, sıradan bir şans oyunu platformu olmanın çok ötesinde, kullanıcıların "gerçek donanım kaynaklarını" (RAM) risk ederek oynadığı, rogue-like mekaniklerine sahip, yapay zeka destekli benzersiz bir web uygulamasıdır. 
 
-Kullanıcı sisteme mail ve şifresi ile girer. Şifre kodlanmış (hashed) şekilde tutulacak, isteğe bağlı olarak mail de kodlanmış şekilde saklanabilir.
+Kullanıcılar sisteme girdiklerinde risk etmek istedikleri RAM miktarını belirlerler. Projenin imza özelliği olan özel istemci taraflı (client-side) betikler sayesinde, oyun kaybedildikçe tarayıcı belleği kasıtlı ve kontrollü bir şekilde doldurulur. Sınır aşıldığında ise sistem sahte bir çökme ekranıyla "Run" (Tur) işlemini sonlandırır.
 
-### Başlangıç ve Mekanik
-Kullanıcı sisteme girdiğinde toplam RAM miktarını girmesi istenecek. Daha sonra bu oyun için feda etmek istediği (chip olarak kullanacağı) RAM miktarını girecek. Kullanıcının çip olarak kullanacağı RAM miktarını anında bir JavaScript scripti ile bellekte dolduracak bir program olacak; bu sayede kullanıcının hile yapıp yapmadığı kontrol edilecek.
+## 🚀 Teknolojiler ve Mimari
 
-### Oyun ve İstatistikler
-Ana menüde oynanabilecek oyunlar görülecek. Herhangi birine girildiğinde oyun kısaca anlatılıp başlanacak.
-* **İstatistik Takibi:** Kullanıcı hesabı ilk açıldığında 0 olan statlar, oynanan oyuna göre artacak (Örn: 10 kere Coin Flip oynandıysa CF sütunu 10 olacak).
-* **Winrate:** Her oyun için galibiyet oranı tutulacak (Örn: 20 el Blackjack, 12 galibiyet = 12/20 winrate).
-* **MMR Sistemi:** Kazanılacak para sabit olmayacak. Winrate ne kadar yüksekse kazanç o kadar artacak (LoL MMR sistemine benzer). Bu MMR, oyuncu battığında (run sonunda) sıfırlanacak.
-* **Rogue-like Deneyimi:** Kazanılan paralarla özel yetenekli eşyalar satın alınabilecek.
+* **Backend:** C#, .NET 10, ASP.NET Core Minimal API
+* **Veritabanı & ORM:** Microsoft SQL Server, Entity Framework Core (EF Core)
+* **Güvenlik:** JWT (JSON Web Token) ile oturum yönetimi, BCrypt ile şifreleme
+* **Frontend:** Vite, React, TypeScript/JavaScript
+* **Otomasyon:** n8n,Azure
 
-### Teknik Detaylar
-Esnekliği ve eğlenceyi artırmak için her run bir **seed** değerine sahip olacak.
+## 🎲 Oyun Mekanikleri
 
-#### Veritabanında Tutulacak Global Değerler:
-* Mail ve Şifre
-* Oyun bazlı istatistikler (A, B, C oyunları için):
-    * Oynanma sayısı
-    * Kazanma/Kaybetme sayısı
-    * Beraberlik (0 kazanç) sayısı
+* **The "Run" (Tur) Sistemi:** Kullanıcının başlangıç çipi olarak yatırdığı RAM miktarından, tamamen batana kadar geçen sürece bir "Run" denir. Her tur **Seed** değeri ile oluşturulur.
+* **Canlı RAM Tüketimi:** Tarayıcı tarafında çalışan özel bir algoritma, donanım RAM miktarını anlık olarak manipüle eder (Maks. 2GB). Kazanıldıkça bellek serbest bırakılır, kaybedildikçe şişirilir.
+* **MMR ve Rogue-like:** Galibiyet oranına (Winrate) bağlı olarak dinamik bir MMR sistemi devrededir. Tur bitiminde MMR sıfırlanır.
 
-#### Run Bazlı İşlemler:
-* Oyuna girildiği anda ilgili oyunun oynanma sayısı 1 artacak.
-* Sonuca göre (kazanç/kayıp) veritabanındaki kullanıcı statları güncellenecek.
-* Sitenin hızı ve mobil uyumluluğu için sürekli değişen veriler browser tarafında (client-side) tutulacak, böylece frontend geliştiricisi zorlanmayacak.
+## 🗄️ Veritabanı Şeması
 
----
-
-### Gorseller
-![wow](Images/gibibi.jpg)
-![floppa](Images/floppa.jpg)
-![tool](Images/292578.jpg)
-
-### Database Diagram
+Projemizin ilişkisel veritabanı modeli aşağıdaki gibidir:
 ![Database diagram](Images/DbScheme.png)
 
+## 🛠️ Kurulum ve Çalıştırma Adımları
 
-### Kurulum
+Projeyi kendi ortamınızda (Localhost) test etmek için aşağıdaki adımları izleyin.
 
+### 1. Backend & Veritabanı Kurulumu
+
+Projeyi klonladıktan sonra API dizinine geçin ve veritabanını oluşturun:
+
+```bash
+git clone https://github.com/gerginkedi/RamScam.git
 ```
-cd frontend
+```bash
+cd RamScam/backend
+dotnet ef database update
+```
+
+* ⚠️**Önemli Not (Seed Data):**   Kayıt olma (Register) işleminin sorunsuz çalışması için veritabanı oluştuktan sonra Games tablosunda en az bir oyunun başlangıç verisi (Seed) olarak bulunduğundan emin olun.
+
+Veritabanı hazırlandıktan sonra projeyi ayağa kaldırın:
+
+```Bash
+dotnet run
+```
+
+API varsayılan olarak https://localhost:xxxx portu üzerinde çalışmaya başlayacaktır.
+
+
+### 2. Frontend Kurulumu
+
+API arka planda çalışmaya devam ederken yeni bir terminal açın ve projenin ön yüz dizinine geçiş yapın:
+
+```Bash
+cd ../frontend
 npm install
 npm run dev
 ```
+
+Vite sunucusu varsayılan olarak http://localhost:5173 adresinde çalışacaktır. Tarayıcınızdan bu adrese giderek projeyi görüntüleyebilirsiniz.
+
+
+### 3. Dış Servisler (n8n Otomasyonu)
+
+Projeye kayıt olan kullanıcılara "Hoş Geldin" e-postası göndermek ve arayüzde rastgele ilginç bilgiler (Fun Fact) sunmak için n8n iş akışı otomasyonu kullanılmaktadır.
+
+* **Hızlı Test İçin (Önerilen):** Geliştirme sürecinde n8n altyapısı ekibimiz tarafından bir bulut sunucusunda (Azure) aktif olarak host edilmektedir. Herhangi bir ekstra kurulum yapmadan projeyi anında test edebilirsiniz.
+
+* **Yerel Kurulum (Opsiyonel):** Projeyi tamamen kendi izole ortamınızda çalıştırmak isterseniz, Docker üzerinden kendi n8n konteynerinizi ayağa kaldırabilir ve appsettings.json içerisindeki Webhook URL'lerini kendi local adresiniz (localhost:5678) ile güncelleyebilirsiniz.
+
+👨‍💻 Geliştirici Ekip
+Bu proje Sinop Üniversitesi Bilgisayar Mühendisliği öğrencileri tarafından geliştirilmiştir:
+
+* **Ömer**
+* **Erdem**
+* **Süleyman**
