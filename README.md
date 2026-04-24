@@ -70,8 +70,13 @@ npm run dev
 
 Vite sunucusu varsayılan olarak http://localhost:5173 adresinde çalışacaktır. Tarayıcınızdan bu adrese giderek projeyi görüntüleyebilirsiniz.
 
+### 3. Docker kurulumu
 
-### 3. Dış Servisler (n8n Otomasyonu)
+```Bash
+ docker-compose up --build
+```
+
+### 4. Dış Servisler (n8n Otomasyonu)
 
 Projeye kayıt olan kullanıcılara "Hoş Geldin" e-postası göndermek ve arayüzde rastgele ilginç bilgiler (Fun Fact) sunmak için n8n iş akışı otomasyonu kullanılmaktadır.
 
