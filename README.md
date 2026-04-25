@@ -47,7 +47,7 @@ dotnet build
 dotnet ef database update
 ```
 
-* ⚠️**Önemli Not (Seed Data):**   Kayıt olma (Register) işleminin sorunsuz çalışması için veritabanı oluştuktan sonra Games tablosunda en az bir oyunun başlangıç verisi (Seed) olarak bulunduğundan emin olun.
+* ⚠️**Önemli Not (Seed Data):** Database > dbo.Games'de ID = 1, ID = 2, ID = 3 Olarak 3 oyun manuel olarak eklenmeli aksi halde kayıt başarısız olacaktır 
 
 Veritabanı hazırlandıktan sonra projeyi ayağa kaldırın:
 
