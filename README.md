@@ -1,10 +1,3 @@
-# Herşeyden Önemlisi Görseller
-![Database diagram](Images/292578.jpg)
-![Database diagram](Images/gibibi.jpg)
-![Database diagram](Images/floppa.jpg)
-
-
-
 #  RamScam
 
 RamScam, sıradan bir şans oyunu platformu olmanın çok ötesinde, kullanıcıların "gerçek donanım kaynaklarını" (RAM) risk ederek oynadığı, rogue-like mekaniklerine sahip, yapay zeka destekli benzersiz bir web uygulamasıdır. 
@@ -28,7 +21,7 @@ Kullanıcılar sisteme girdiklerinde risk etmek istedikleri RAM miktarını beli
 ##  Veritabanı Şeması
 
 Projemizin ilişkisel veritabanı modeli aşağıdaki gibidir:
-![Database diagram](Images/DbScheme.png)
+![Database diagram](Images/dbdiagram.png)
 
 ##  Kurulum ve Çalıştırma Adımları
 
