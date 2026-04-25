@@ -1,4 +1,4 @@
-# herseyden onemlisi gorseller
+# Herşeyden Önemlisi Görseller
 ![Database diagram](Images/292578.jpg)
 ![Database diagram](Images/gibibi.jpg)
 ![Database diagram](Images/floppa.jpg)
