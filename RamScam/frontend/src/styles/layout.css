@@ -9,7 +9,7 @@
     overflow: hidden;
     white-space: nowrap;
     width: 100%;
-    
+
 }
 
 .home-btn {
@@ -52,7 +52,7 @@
     margin-right: 20px;
 }
 
-.login-btn a{
+.login-btn a {
     border: 1px solid rgb(194, 84, 25);
     border-radius: 5px;
     color: rgb(194, 84, 25);
@@ -258,7 +258,7 @@
     background-color: rgb(160, 60, 10);
 }
 
-.logout-btn button{
+.logout-btn button {
     border: 1px solid rgb(194, 84, 25);
     background-color: rgb(194, 84, 25);
     border-radius: 5px;
@@ -310,4 +310,54 @@
     font-family: 'Exo 2', sans-serif;
     font-weight: bold;
     line-height: 1;
+}
+
+.artifact-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 210, 255, 0.08);
+    border: 1px solid rgba(0, 210, 255, 0.4);
+    padding: 8px 16px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+    cursor: help;
+    transition: all 0.3s ease;
+    animation: artifactPulse 3s infinite ease-in-out;
+}
+
+@keyframes artifactPulse {
+    0% {
+        border-color: rgba(0, 210, 255, 0.4);
+        box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+    }
+
+    50% {
+        border-color: rgba(0, 210, 255, 0.8);
+        box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+    }
+
+    100% {
+        border-color: rgba(0, 210, 255, 0.4);
+        box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+    }
+}
+
+.artifact-indicator:hover {
+    background: rgba(0, 210, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.artifact-icon {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 5px rgba(0, 210, 255, 0.5));
+}
+
+.artifact-name {
+    font-weight: 700;
+    color: #00d2ff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: 'Exo 2', sans-serif;
 }

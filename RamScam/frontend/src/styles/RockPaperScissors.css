@@ -1,0 +1,159 @@
+.rps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.rps-title {
+    color: rgb(194, 84, 25);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.rps-game-board {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(194, 84, 25, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.rps-choices {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.rps-choice-btn {
+    border: 2px solid rgb(194, 84, 25);
+    background: transparent;
+    color: #fff;
+    padding: 20px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 5px;
+}
+
+.rps-choice-btn:hover:not(:disabled) {
+    background: rgba(194, 84, 25, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(194, 84, 25, 0.3);
+}
+
+.rps-choice-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.rps-choice-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #555;
+}
+
+.rps-choice-btn.selected {
+    background: rgb(194, 84, 25);
+    box-shadow: 0 0 20px rgba(194, 84, 25, 0.5);
+}
+
+.rps-icon {
+    font-size: 2rem;
+}
+
+.rps-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.rps-result-display {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.rps-side {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rps-side-label {
+    color: #8b9bb4;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.rps-side-choice {
+    font-size: 3rem;
+    min-height: 4.5rem;
+}
+
+.rps-outcome {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 20px 0;
+    height: 2.2rem;
+}
+
+.rps-outcome.win {
+    color: #4caf50;
+}
+
+.rps-outcome.lose {
+    color: #f44336;
+}
+
+.rps-outcome.draw {
+    color: #ffeb3b;
+}
+
+.rps-bet-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.rps-bet-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(194, 84, 25);
+    border-radius: 8px;
+    padding: 12px 20px;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.1rem;
+    text-align: center;
+    width: 200px;
+}
+
+.rps-bet-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(194, 84, 25, 0.3);
+}
+
+.rps-error {
+    color: #ff4444;
+    font-size: 0.9rem;
+    height: 1rem;
+}

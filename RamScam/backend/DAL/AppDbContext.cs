@@ -12,6 +12,8 @@ namespace RamScam.backend.DAL
         public DbSet<GlobalStats> GlobalStats { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserStats> UserStats { get; set; }
+        public DbSet<Artifact> Artifacts { get; set; }
+        public DbSet<Run> Runs { get; set; }
 
     }
 }

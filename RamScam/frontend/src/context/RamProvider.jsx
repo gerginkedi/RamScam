@@ -63,28 +63,63 @@ export function RamProvider({ children }) {
         if (remainderMb > 0) allocChunk(remainderMb);
     }, [lcg]);
 
+    const [selectedArtifact, setSelectedArtifact] = useState(() => getStored('ramscam_artifact', null));
+    const [lossCount, setLossCount] = useState(0);
+    const [hasRevived, setHasRevived] = useState(false);
+
+    const CHIP_VALUE_MB = 1024 / 100; // 1 Chip = 10.24 MB
+
     const allocateRam = (mb) => {
-        const chips = Math.floor(mb * MB_TO_CHIP);
+        const chips = Math.round(mb / CHIP_VALUE_MB);
         setAllocatedRam(mb);
         setRamBalance(chips);
         setStored(ALLOC_KEY, mb);
         setStored(RAM_KEY, chips);
+        setLossCount(0);
+        setHasRevived(false);
+    };
+
+    const selectArtifact = (artifact) => {
+        setSelectedArtifact(artifact);
+        setStored('ramscam_artifact', artifact);
     };
 
     const syncAndSet = (val) => {
-        const clamped = Math.max(0, val);
+        let clamped = Math.max(0, val);
+
+        if (clamped === 0 && selectedArtifact?.effectType === 'Revive' && !hasRevived) {
+            const initialChips = Math.round(allocatedRam / CHIP_VALUE_MB);
+            clamped = Math.floor(initialChips * 0.25);
+            setHasRevived(true);
+            alert("Hata Düzeltme Belleği (ECC Memory) Devreye Girdi! Sistem %25 RAM ile yeniden yüklendi.");
+        }
+
         setRamBalance(clamped);
         setStored(RAM_KEY, clamped);
     };
 
-    const addRam = (amount) => syncAndSet(ramBalance + amount);
-    const removeRam = (amount) => syncAndSet(ramBalance - amount);
+    const addRam = (amount) => {
+        let finalAmount = Math.floor(amount);
+        if (selectedArtifact?.effectType === 'WinMultiplier') {
+            finalAmount = Math.floor(amount * selectedArtifact.effectValue);
+        }
+        syncAndSet(ramBalance + finalAmount);
+    };
 
-    // Ters orantı: chip azaldıkça usedRam artar
-    const maxChip = allocatedRam ? Math.floor(allocatedRam * MB_TO_CHIP) : 0;
-    const usedRam = allocatedRam && maxChip > 0
-        ? Math.max(0, Math.floor(allocatedRam * (1 - Math.min(ramBalance, maxChip) / maxChip)))
-        : 0;
+    const removeRam = (amount) => {
+        let finalAmount = Math.floor(amount);
+        if (selectedArtifact?.effectType === 'RamMultiplierOnLossMultiplier' && lossCount < 2) {
+            finalAmount = Math.floor(amount * selectedArtifact.effectValue);
+            setLossCount(prev => prev + 1);
+        } else if (selectedArtifact?.effectType === 'Safety') {
+            finalAmount = Math.floor(amount * selectedArtifact.effectValue);
+        }
+        syncAndSet(ramBalance - finalAmount);
+    };
+
+    // Mevcut (Kullanılabilir) MB hesabı: Chip sayısına göre tam değer
+    const availableRamMb = Math.min(allocatedRam, ramBalance * CHIP_VALUE_MB);
+    const usedRam = allocatedRam ? Math.max(0, allocatedRam - availableRamMb) : 0;
 
     // usedRam değişince fiziksel RAM'i güncelle
     useEffect(() => {
@@ -97,8 +132,20 @@ export function RamProvider({ children }) {
         };
     }, [usedRam, allocatedRam, physicalAllocate]);
 
+    const availableRam = availableRamMb;
+
     return (
-        <RamContext.Provider value={{ ramBalance, allocatedRam, usedRam, allocateRam, addRam, removeRam }}>
+        <RamContext.Provider value={{
+            ramBalance,
+            allocatedRam,
+            usedRam,
+            availableRam,
+            selectedArtifact,
+            allocateRam,
+            addRam,
+            removeRam,
+            selectArtifact
+        }}>
             {children}
         </RamContext.Provider>
     );

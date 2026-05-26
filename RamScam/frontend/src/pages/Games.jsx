@@ -40,9 +40,9 @@ const GAMES = [
         id: 5,
         name: 'Taş Kağıt Makas',
         description: 'Çocukluğunun klasik oyunu, şimdi stratejiyle.',
-        logo: null,
-        href: null,
-        active: false,
+        logo: '/images/rock-paper-scissors-logo.png',
+        href: '/games/rps',
+        active: true,
     }
 ];
 

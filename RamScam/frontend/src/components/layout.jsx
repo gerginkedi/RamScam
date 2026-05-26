@@ -5,6 +5,7 @@ import { useRam } from '../useRam';
 import { useShards } from '../useShards';
 import { useBuffs } from '../useBuffs';
 import { useNavigate } from 'react-router-dom';
+import ArtifactModal from './ArtifactModal';
 
 function RamSetupModal({ onConfirm }) {
     const [mb, setMb] = useState(512);
@@ -41,7 +42,7 @@ function RamSetupModal({ onConfirm }) {
 }
 
 function Layout({ children }) {
-    const { ramBalance, allocatedRam, usedRam, allocateRam } = useRam();
+    const { ramBalance, allocatedRam, usedRam, availableRam, allocateRam, selectedArtifact, selectArtifact } = useRam();
     const { shardBalance } = useShards();
     const { activeBuffs } = useBuffs();
     const navigate = useNavigate();
@@ -50,6 +51,8 @@ function Layout({ children }) {
     const [showSetup, setShowSetup] = useState(() => {
         return !sessionStorage.getItem('ram_setup_done');
     });
+
+    const [showArtifacts, setShowArtifacts] = useState(false);
 
     useEffect(() => {
         if (allocatedRam && ramBalance <= 0) {
@@ -61,11 +64,18 @@ function Layout({ children }) {
         allocateRam(mb);
         sessionStorage.setItem('ram_setup_done', 'true');
         setShowSetup(false);
+        setShowArtifacts(true);
+    };
+
+    const handleArtifactSelect = (artifact) => {
+        selectArtifact(artifact);
+        setShowArtifacts(false);
     };
 
     const formatRam = (mb) => {
         if (mb === null || mb === undefined) return '—';
-        return mb >= 1024 ? (mb / 1024).toFixed(1) + ' GB' : mb + ' MB';
+        if (mb >= 1024) return (mb / 1024).toFixed(1) + ' GB';
+        return Math.round(mb) + ' MB';
     };
 
     const activeBuffList = Object.values(activeBuffs);
@@ -73,6 +83,7 @@ function Layout({ children }) {
     return (
         <div>
             {showSetup && <RamSetupModal onConfirm={handleConfirm} />}
+            {showArtifacts && <ArtifactModal onSelect={handleArtifactSelect} />}
 
             <div className='top-bar'>
                 <div className="home-btn">
@@ -81,11 +92,17 @@ function Layout({ children }) {
                 </div>
 
                 <div className="balance-display">
+                    {selectedArtifact && (
+                        <div className='artifact-indicator' title={selectedArtifact.description}>
+                            <span className='artifact-icon'>💎</span>
+                            <span className='artifact-name'>{selectedArtifact.name}</span>
+                        </div>
+                    )}
                     <h2>Chip: {ramBalance} ◈</h2>
                     <h2 className='shard-display'>Shard: {shardBalance} ⟡</h2>
                     {allocatedRam && (
                         <h2 className='hafiza-display'>
-                            Hafıza: <span className='hafiza-used'>{formatRam(usedRam)}</span> / {formatRam(allocatedRam)}
+                            Hafıza: <span className='hafiza-used'>{formatRam(availableRam)}</span> / {formatRam(allocatedRam)}
                         </h2>
                     )}
 
@@ -139,7 +156,7 @@ function Layout({ children }) {
                             <a href="/games/blackjack">Blackjack</a>
                             <a href>Rulet</a>
                             <a href>Mayın Tarlası</a>
-                            <a href>Taş Kağıt Makas</a>
+                            <a href="/games/rps">Taş Kağıt Makas</a>
                         </div>
                         <br /><br />
                         <hr className="divider" />

@@ -11,6 +11,8 @@
     <Content Remove="backend\wwwroot\**" />
     <EmbeddedResource Remove="backend\wwwroot\**" />
     <None Remove="backend\wwwroot\**" />
+    <Compile Remove="Test\**" />
+    <Compile Remove="frontend\**" />
   </ItemGroup>
 
   <ItemGroup>
