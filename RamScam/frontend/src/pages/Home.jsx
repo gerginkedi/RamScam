@@ -33,6 +33,7 @@ function Home() {
         { name: 'Coin Flip', href: '/games/coinflip', logo: '/images/coinflip-logo.png' },
         { name: 'Blackjack', href: '/games/blackjack', logo: '/images/blackjack-logo.png' },
         { name: 'Taş Kağıt Makas', href: '/games/rps', logo: '/images/rock-paper-scissors-logo.png' },
+        { name: 'Kim Karamsar Olmak İster?', href: '/games/pessimist', logo: '/images/pessimist-logo.png' },
     ];
 
     // Seed ile karıştırır — her kullanıcıya farklı ama tutarlı sıra (Sunum icin gecici cozum)
@@ -58,14 +59,14 @@ function Home() {
                     <div className="embla__container">
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="/images/coinflip-logo.png" alt="Coinflip" className='coinflip-logo' />
+                                <img src="/images/coinflip-logo.png?v=2" alt="Coinflip" className='coinflip-logo' />
                                 <div className='game-info'><h3>Coinflip</h3></div>
                                 <a href='/games/coinflip'>Oyna</a>
                             </div>
                         </div>
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="/images/blackjack-logo.png" alt="Blackjack" className='blackjack-logo' />
+                                <img src="/images/blackjack-logo.png?v=2" alt="Blackjack" className='blackjack-logo' />
                                 <div className='game-info'><h3>Blackjack</h3></div>
                                 <a href='/games/blackjack'>Oyna</a>
                             </div>
@@ -86,9 +87,16 @@ function Home() {
                         </div>
                         <div className="embla__slide">
                             <div className="game-card">
-                                <img src="/images/rock-paper-scissors-logo.png" alt="Taş Kağıt Makas" className='rock-paper-scissors-logo' />
+                                <img src="/images/rock-paper-scissors-logo.png?v=2" alt="Taş Kağıt Makas" className='rock-paper-scissors-logo' />
                                 <div className='game-info'><h3>Taş Kağıt Makas</h3></div>
                                 <a href='/games/rps'>Oyna</a>
+                            </div>
+                        </div>
+                        <div className="embla__slide">
+                            <div className="game-card">
+                                <img src="/images/pessimist-logo.png?v=2" alt="Kim Karamsar Olmak İster?" className='pessimist-logo' />
+                                <div className='game-info'><h3>Kim Karamsar Olmak İster?</h3></div>
+                                <a href='/games/pessimist'>Oyna</a>
                             </div>
                         </div>
                     </div>
@@ -99,7 +107,7 @@ function Home() {
                 <div className='game-list'>
                     {shuffled.map((game, idx) => (
                         <a key={idx} href={game.href} className='fy-card'>
-                            <img src={game.logo} alt={game.name} />
+                            <img src={game.logo + "?v=2"} alt={game.name} />
                             <div className='game-info'><h3>{game.name}</h3></div>
                             <span>Oyna</span>
                         </a>

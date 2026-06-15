@@ -1,128 +1,108 @@
-/* AiChatWidget.css - Sağ Alt Köşe Sohbet Penceresi İçin Tasarım */
-
 .ai-chat-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999; /* Her zaman diğer elemanların üstünde kalsın */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+}
+
+.ai-chat-open-btn {
+  background: var(--accent-color);
+  color: #000;
+  border: none;
+  border-radius: 100px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--accent-glow);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ai-chat-open-btn:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.ai-chat-window {
+  width: 320px;
+  background: var(--panel-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--shadow-main);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
 
-  /* Sağ alttaki kapalı buton görünümü */
-  .ai-chat-open-btn {
-    background-color: rgb(194, 84, 25);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, background-color 0.2s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .ai-chat-open-btn:hover {
-    background-color: rgb(160, 60, 10);
-    transform: scale(1.05);
-  }
+.ai-chat-header {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent-color);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
 
-  /* Açıldığındaki ana sohbet penceresi */
-  .ai-chat-window {
-    width: 300px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    animation: slideUp 0.3s ease-out;
-  }
+.ai-chat-header h4 {
+  margin: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.ai-chat-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+}
 
-  /* Başlık Alanı */
-  .ai-chat-header {
-    background-color: #6c5ce7;
-    color: white;
-    padding: 12px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.ai-chat-body {
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.2);
+  min-height: 150px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.6;
+}
 
-  .ai-chat-header h4 {
-    margin: 0;
-    font-size: 16px;
-  }
+.ai-chat-footer {
+  padding: 15px;
+  border-top: 1px solid var(--border-color);
+}
 
-  .ai-chat-close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    line-height: 1;
-  }
+.ai-chat-new-fact-btn {
+  width: 100%;
+  background: var(--accent-color);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
 
-  .ai-chat-close-btn:hover {
-    color: #ff7675;
-  }
-
-  /* İçerik (Fun Fact) Gözüken Alan */
-  .ai-chat-body {
-    padding: 20px;
-    background-color: #f8f9fa;
-    min-height: 120px;
-    color: #2d3436;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .ai-chat-message {
-    margin: 0;
-  }
-
-  .loading-spinner {
-    text-align: center;
-    color: #b2bec3;
-    font-style: italic;
-    margin-top: 20px;
-  }
-
-  /* Alt kısım (Buton) */
-  .ai-chat-footer {
-    padding: 12px;
-    background-color: #fff;
-    border-top: 1px solid #eee;
-  }
-
-  .ai-chat-new-fact-btn {
-    width: 100%;
-    background-color: #00cec9;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  .ai-chat-new-fact-btn:hover:not(:disabled) {
-    background-color: #00b894;
-  }
-
-  .ai-chat-new-fact-btn:disabled {
-    background-color: #dfe6e9; /* Yüklenirken (loading) grileşsin */
-    cursor: not-allowed;
-  }
+.ai-chat-new-fact-btn:hover:not(:disabled) {
+  box-shadow: 0 0 15px var(--accent-glow);
+}

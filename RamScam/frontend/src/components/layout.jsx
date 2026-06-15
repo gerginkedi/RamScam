@@ -14,27 +14,35 @@ function RamSetupModal({ onConfirm }) {
         <div className='ram-setup-overlay'>
             <div className='ram-setup-box'>
                 <h2>RAM Tahsisi</h2>
-                <p>Oyun için ne kadar RAM ayırmak istiyorsunuz?</p>
-                <span className='ram-setup-preview'>
-                    {mb >= 1024 ? (mb / 1024).toFixed(1) + ' GB' : mb + ' MB'}
-                    {' → '}
-                    {Math.floor(mb * 100 / 1024)} Chip
-                </span>
-                <input
-                    type='range'
-                    min={256}
-                    max={2048}
-                    step={256}
-                    value={mb}
-                    onChange={e => setMb(parseInt(e.target.value))}
-                    className='ram-setup-slider'
-                />
-                <div className='ram-setup-range-labels'>
-                    <span>256 MB</span>
-                    <span>2048 MB</span>
+                <p className='ram-setup-desc'>Oyun oturumu için ayırmak istediğiniz belleği seçin. Seçeceğiniz miktar Chip harcar.</p>
+
+                <div className='ram-setup-preview'>
+                    <span className='mb-text'>
+                        {mb >= 1024 ? (mb / 1024).toFixed(1) + ' GB' : mb + ' MB'}
+                    </span>
+                    <span className='chip-text'>
+                        → {Math.floor(mb * 100 / 1024)} Chip Bedeli
+                    </span>
                 </div>
+
+                <div className='ram-setup-slider-container'>
+                    <input
+                        type='range'
+                        min={256}
+                        max={2048}
+                        step={256}
+                        value={mb}
+                        onChange={e => setMb(parseInt(e.target.value))}
+                        className='ram-setup-slider'
+                    />
+                    <div className='ram-setup-slider-labels'>
+                        <span>256 MB</span>
+                        <span>2048 MB</span>
+                    </div>
+                </div>
+
                 <button className='ram-setup-btn' onClick={() => onConfirm(mb)}>
-                    Tahsis Et
+                    Tahsis Et & Başla 🚀
                 </button>
             </div>
         </div>
@@ -78,6 +86,16 @@ function Layout({ children }) {
         return Math.round(mb) + ' MB';
     };
 
+    const [brightness, setBrightness] = useState(100);
+
+    useEffect(() => {
+        const handleBrightnessChange = (e) => {
+            setBrightness(e.detail.brightness);
+        };
+        window.addEventListener('pessimistBrightness', handleBrightnessChange);
+        return () => window.removeEventListener('pessimistBrightness', handleBrightnessChange);
+    }, []);
+
     const activeBuffList = Object.values(activeBuffs);
 
     return (
@@ -100,6 +118,13 @@ function Layout({ children }) {
                     )}
                     <h2>Chip: {ramBalance} ◈</h2>
                     <h2 className='shard-display'>Shard: {shardBalance} ⟡</h2>
+
+                    {window.location.pathname.includes('pessimist') && (
+                        <h2 className='brightness-display' style={{ color: brightness < 40 ? '#ff4444' : 'var(--accent-color)' }}>
+                            Parlaklık: %{brightness} 🔆
+                        </h2>
+                    )}
+
                     {allocatedRam && (
                         <h2 className='hafiza-display'>
                             Hafıza: <span className='hafiza-used'>{formatRam(availableRam)}</span> / {formatRam(allocatedRam)}
@@ -154,6 +179,7 @@ function Layout({ children }) {
                         <div className='quick-access'>
                             <a href="/games/coinflip">Coin Flip</a>
                             <a href="/games/blackjack">Blackjack</a>
+                            <a href="/games/pessimist">Kim Karamsar Olmak İster?</a>
                             <a href>Rulet</a>
                             <a href>Mayın Tarlası</a>
                             <a href="/games/rps">Taş Kağıt Makas</a>

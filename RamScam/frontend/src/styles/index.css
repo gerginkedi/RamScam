@@ -1,21 +1,168 @@
-#root {
-    width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Exo+2:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Color Palette - Cyberpunk/Neon Dark */
+    --bg-color: #080A0F;
+    --panel-bg: rgba(20, 26, 38, 0.85);
+    --card-bg: rgba(25, 32, 45, 0.6);
+    --accent-color: #00D2FF;
+    --accent-glow: rgba(0, 210, 255, 0.4);
+    --secondary-color: #9D50BB;
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --border-color: rgba(0, 210, 255, 0.2);
+    --glass-blur: blur(12px);
+    --shadow-main: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+
+    /* Fonts */
+    --font-main: 'Outfit', 'Exo 2', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
 body {
-  background-color: rgb(40, 40, 40);
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(157, 80, 187, 0.05) 0%, transparent 40%);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-main);
+}
+
+.neon-border {
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Global Image Filter - Harmonizes all icons/images with the cyan theme */
+img {
+    /* Full orange to blue shift (+180-200deg usually works best) */
+    filter: hue-rotate(190deg) brightness(1.2) saturate(2);
+    transition: all 0.3s ease;
+}
+
+/* Specific logos might need less rotation or more brightness */
+.game-card img,
+.gs-card-logo img,
+.fy-card img {
+    filter: hue-rotate(190deg) drop-shadow(0 0 15px var(--accent-glow)) brightness(1.1);
+}
+
+/* Kim Karamsar Olmak İster?, Coinflip, Blackjack ve RPS için özel: Zaten mavi oldukları için filtreyi sıfırlıyoruz */
+img[src*="pessimist-logo"],
+img[src*="coinflip-logo"],
+img[src*="blackjack-logo"],
+img[src*="rock-paper-scissors-logo"] {
+    filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 15px var(--accent-glow)) !important;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: rgb(30, 30, 30);
+    background: var(--bg-color);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(78, 78, 78);
+    background: var(--accent-color);
     border-radius: 10px;
+}
+
+/* Global Game Intro Modals - Ekranın Ortasında Şık Kutucuklar */
+.intro-blur {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    /* Her şeyin üstünde */
+    animation: fadeIn 0.3s ease;
+}
+
+.intro-box {
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 24px;
+    padding: 60px;
+    max-width: 650px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 210, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    animation: modalSlide 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.intro-box h2 {
+    color: var(--accent-color);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.intro-box p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.intro-box button {
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    align-self: center;
+}
+
+.intro-box button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+@keyframes modalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }

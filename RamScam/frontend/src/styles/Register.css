@@ -1,130 +1,122 @@
-.register-container body {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: rgb(30, 30, 30);  
-    
-}
-
-.register-container h1 {
-    margin-bottom: 40px;
-    color: white;
-    font-size: 32px;
-    font-weight: 500;
-    font-family: 'Exo 2', sans-serif;
-}
-
 .register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 150px;
-    font-family: 'Exo 2', sans-serif;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    font-family: var(--font-main);
+}
+
+.register-container h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-shadow: 0 0 20px var(--accent-glow);
 }
 
 .flex-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 400px;
-  margin-top: 20px;
-  border-radius: 10px;
-  padding: 30px;
-  border: 1px solid rgb(124, 53, 15); 
-  background-color: rgb(40, 40, 40);
-  
-}
-
-.ust-row {
-    color: black;
-    background-color: transparent;
-    
-}
-    
-.register-container input {
-    border: 1px solid rgb(124, 53, 15);
-    border-radius: 5px;
-    outline: none;
+    background: var(--panel-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 50px 40px;
     width: 100%;
-    height: 40px;
-    box-sizing: border-box;
-    background-color: #191919;
-    padding: 10px;
-}
-
-.register-container button {
-    box-sizing: border-box;
-}
-
-.alt-row {
+    max-width: 450px;
+    box-shadow: var(--shadow-main);
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    flex: 1;
     gap: 20px;
 }
 
-
 .register-container label {
     display: block;
-    text-align: left;
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.register-container input {
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: #fff;
+    padding: 0 20px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.register-container input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: rgba(0, 210, 255, 0.05);
+    box-shadow: 0 0 15px var(--accent-glow);
 }
 
 #register {
-    border: 1px solid rgb(124, 53, 15);
-    color: white;
-    border-radius: 5px;
-    outline: none;
     width: 100%;
-    height: 40px;
-    box-sizing: border-box;
-    background-color: rgb(194, 84, 25);
-    font-size: 14px;
-    font-weight: 500;
-    font-family: 'Exo 2', sans-serif;
+    height: 54px;
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+#register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px var(--accent-glow);
 }
 
 .register-error {
-    color: #e05533;
-    font-family: 'Exo 2', sans-serif;
+    color: #ef4444;
     font-size: 0.9rem;
     text-align: center;
-    margin: 0;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .register-success {
-    color: rgb(194, 84, 25);
-    font-family: 'Exo 2', sans-serif;
+    color: #10b981;
     font-size: 0.9rem;
     text-align: center;
-    margin: 0;
-}
-
-.alt-row button {
-    cursor: pointer;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .alt-row h5 {
-    color: #aaa;
-    font-size: 0.85rem;
-    letter-spacing: 3px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    margin-bottom: 12px;
 }
 
 .alt-row a {
-    color: rgb(194, 84, 25);
+    color: var(--accent-color);
     text-decoration: none;
+    font-weight: 600;
+    display: block;
+    text-align: center;
+}
+
+.alt-row a:hover {
+    text-decoration: underline;
 }

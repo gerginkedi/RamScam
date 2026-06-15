@@ -50,8 +50,8 @@ function CoinFlip() {
     const { addShardFromWin } = useShards();
 
     const toggleBlur = () => {
-    sessionStorage.setItem('coinflip_intro_seen', 'true');
-    setBlur(false);
+        sessionStorage.setItem('coinflip_intro_seen', 'true');
+        setBlur(false);
     };
 
     const videoRef = useRef(null);
@@ -204,7 +204,7 @@ function CoinFlip() {
     useEffect(() => {
         return () => resetGameState();
     }, [resetGameState]);
-    
+
     return (
         <div>
             {blur && (
@@ -218,82 +218,74 @@ function CoinFlip() {
             )}
 
             <Layout>
-                <div className='coinflip-game' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '60vh', justifyContent: 'center' }}>
-                    <div className='game-coin' style={{ width: '100%' }}>
-                        <div className='gsp-root' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+                <div className='coinflip-game'>
+                    <h1 className='coinflip-title'>Coin Flip</h1>
 
-                            {/* CANVAS */}
+                    <div className='gsp-root'>
+                        <div className='canvas-container'>
                             <canvas
                                 ref={canvasRef}
                                 width={800}
                                 height={600}
                                 style={{
                                     width: '100%',
-                                    maxWidth: '800px',
-                                    aspectRatio: '16/9',
-                                    backgroundColor: 'transparent',
-                                    margin: '20px'
+                                    height: '100%',
+                                    backgroundColor: 'transparent'
                                 }}
                             />
-
-                            {/* SONUÇ MESAJI */}
-                            {result === 'win' && (
-                                <div className='result-msg result-win' >
-                                    <audio autoPlay>
-                                        <source src="/sounds/coinflip-win.mp3" type="audio/mpeg" />
-                                    </audio>
-                                </div>
-                            )}
-                            {result === 'lose' && (
-                                <div className='result-msg result-lose'>
-                                    <audio autoPlay>
-                                        <source src="/sounds/coinflip-lose.mp3" type="audio/mpeg" />
-                                    </audio>
-                                </div>
-                            )}
-
-                            {/* BAHİS INPUT */}
-                            <div className='bet-area'>
-                                <input
-                                    type='text'
-                                    inputMode='numeric'
-                                    placeholder='Bahis miktarı (RAM)'
-                                    value={betAmount}
-                                    onChange={handleBetInput}
-                                    disabled={isPlaying}
-                                    className='bet-input'
-                                />
-                                {betError && <span className='bet-error'>{betError}</span>}
-                            </div>
-
-                            {/* BUTONLAR */}
-                            <div className='gsp-btn-row'>
-                                <button
-                                    onClick={() => handleCoin('yazi')}
-                                    disabled={isPlaying}
-                                    className='gsp-coin-btn'
-                                >
-                                    Yazı
-                                </button>
-                                <button
-                                    onClick={() => handleCoin('tura')}
-                                    disabled={isPlaying}
-                                    className='gsp-coin-btn'
-                                >
-                                    Tura
-                                </button>
-                            </div>
-
-                            <video
-                                ref={videoRef}
-                                playsInline
-                                style={{ display: "none" }}
-                                onLoadedData={handleVideoLoadedData}
-                                onPlay={handleVideoPlay}
-                                onEnded={handleVideoEnded}
-                                onError={handleVideoError}
-                            />
                         </div>
+
+                        {/* SONUÇ MESAJI */}
+                        {result && (
+                            <div className={`result-msg result-${result}`}>
+                                {result === 'win' ? 'TEBRİKLER! KAZANDIN 🚀' : 'KAYBETTİN... 💀'}
+                                <audio autoPlay>
+                                    <source src={`/sounds/coinflip-${result}.mp3`} type="audio/mpeg" />
+                                </audio>
+                            </div>
+                        )}
+
+                        {/* BAHİS INPUT */}
+                        <div className='bet-area'>
+                            <input
+                                type='text'
+                                inputMode='numeric'
+                                placeholder='Bahis miktarı (RAM)'
+                                value={betAmount}
+                                onChange={handleBetInput}
+                                disabled={isPlaying}
+                                className='bet-input'
+                            />
+                            {betError && <span className='bet-error'>{betError}</span>}
+                        </div>
+
+                        {/* BUTONLAR */}
+                        <div className='gsp-btn-row'>
+                            <button
+                                onClick={() => handleCoin('yazi')}
+                                disabled={isPlaying}
+                                className='gsp-coin-btn'
+                            >
+                                Yazı
+                            </button>
+                            <button
+                                onClick={() => handleCoin('tura')}
+                                disabled={isPlaying}
+                                className='gsp-coin-btn'
+                            >
+                                Tura
+                            </button>
+                        </div>
+
+                        <video
+                            ref={videoRef}
+                            playsInline
+                            style={{ display: "none" }}
+                            onLoadedData={handleVideoLoadedData}
+                            onPlay={handleVideoPlay}
+                            onEnded={handleVideoEnded}
+                            onError={handleVideoError}
+                        />
                     </div>
                 </div>
             </Layout>

@@ -43,6 +43,14 @@ const GAMES = [
         logo: '/images/rock-paper-scissors-logo.png',
         href: '/games/rps',
         active: true,
+    },
+    {
+        id: 6,
+        name: 'Kim Karamsar Olmak İster?',
+        description: '10 Soru, 10 Zor Seçim. Karanlığa hazır mısın?',
+        logo: '/images/pessimist-logo.png',
+        href: '/games/pessimist',
+        active: true,
     }
 ];
 
@@ -51,7 +59,7 @@ function GameCard({ game }) {
         <div className={`gs-card ${!game.active ? 'gs-card-inactive' : ''}`}>
             <div className='gs-card-logo'>
                 {game.logo
-                    ? <img src={game.logo} alt={game.name} />
+                    ? <img src={game.logo + "?v=2"} alt={game.name} />
                     : <div className='gs-card-logo-placeholder'>?</div>
                 }
             </div>

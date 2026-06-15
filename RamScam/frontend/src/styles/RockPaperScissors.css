@@ -2,76 +2,101 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 70vh;
-    padding: 20px;
-    font-family: 'Exo 2', sans-serif;
+    gap: 40px;
+    padding: 60px 20px;
 }
 
 .rps-title {
-    color: rgb(194, 84, 25);
-    font-size: 2.5rem;
-    margin-bottom: 30px;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    letter-spacing: 6px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    text-shadow: 0 0 20px var(--accent-glow);
+    margin: 0;
 }
 
 .rps-game-board {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(194, 84, 25, 0.3);
-    border-radius: 20px;
-    padding: 40px;
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
     width: 100%;
-    max-width: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    box-shadow: var(--shadow-main);
+}
+
+.rps-result-display {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 50px;
+}
+
+.rps-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.rps-side-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.rps-side-choice {
+    font-size: 4rem;
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+    background: rgba(255, 255, 255, 0.05);
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
 }
 
 .rps-choices {
     display: flex;
     gap: 20px;
-    justify-content: center;
 }
 
 .rps-choice-btn {
-    border: 2px solid rgb(194, 84, 25);
     background: transparent;
-    color: #fff;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 12px;
     padding: 20px;
-    border-radius: 50%;
     width: 100px;
     height: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    gap: 5px;
+    gap: 8px;
 }
 
 .rps-choice-btn:hover:not(:disabled) {
-    background: rgba(194, 84, 25, 0.2);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(194, 84, 25, 0.3);
-}
-
-.rps-choice-btn:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.rps-choice-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    border-color: #555;
+    background: var(--accent-color);
+    color: #000;
+    box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .rps-choice-btn.selected {
-    background: rgb(194, 84, 25);
-    box-shadow: 0 0 20px rgba(194, 84, 25, 0.5);
+    background: var(--accent-color);
+    color: #000;
+    box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .rps-icon {
@@ -80,80 +105,52 @@
 
 .rps-label {
     font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.rps-result-display {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.rps-side {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.rps-side-label {
-    color: #8b9bb4;
-    font-size: 0.9rem;
+    font-weight: 800;
     text-transform: uppercase;
 }
 
-.rps-side-choice {
-    font-size: 3rem;
-    min-height: 4.5rem;
-}
-
 .rps-outcome {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    margin: 20px 0;
-    height: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    height: 3rem;
 }
 
 .rps-outcome.win {
-    color: #4caf50;
+    color: #10b981;
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
 }
 
 .rps-outcome.lose {
-    color: #f44336;
+    color: #ef4444;
 }
 
 .rps-outcome.draw {
-    color: #ffeb3b;
+    color: var(--secondary-color);
 }
 
 .rps-bet-section {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .rps-bet-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgb(194, 84, 25);
-    border-radius: 8px;
-    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px 30px;
     color: #fff;
-    font-family: 'Exo 2', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     text-align: center;
-    width: 200px;
+    width: 250px;
+    transition: all 0.3s ease;
+    outline: none;
 }
 
 .rps-bet-input:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(194, 84, 25, 0.3);
-}
-
-.rps-error {
-    color: #ff4444;
-    font-size: 0.9rem;
-    height: 1rem;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-glow);
 }

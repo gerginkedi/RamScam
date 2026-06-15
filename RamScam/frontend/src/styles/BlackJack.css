@@ -2,204 +2,171 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
-    padding: 40px 20px;
-    min-height: 80vh;
-    font-family: 'Exo 2', sans-serif;
+    gap: 40px;
+    padding: 60px 20px;
 }
 
 .bj-title {
-    font-size: 2rem;
-    color: rgb(194, 84, 25);
-    letter-spacing: 4px;
-    font-family: 'Exo 2', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px var(--accent-glow);
     margin: 0;
 }
 
-/* HAND */
 .bj-hand {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
 }
 
 .bj-hand-label {
-    font-size: 1rem;
-    color: #aaa;
-    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    letter-spacing: 3px;
     text-transform: uppercase;
 }
 
 .bj-total {
-    color: rgb(194, 84, 25);
-    font-weight: bold;
+    color: var(--accent-color);
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .bj-cards-row {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    gap: 15px;
     justify-content: center;
 }
 
-/* KART */
 .bj-card {
-    width: 72px;
-    height: 108px;
-    border-radius: 8px;
-    border: 2px solid #444;
-    background: #1e1e1e;
+    width: 80px;
+    height: 120px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    font-family: 'Exo 2', sans-serif;
-    font-weight: bold;
-    font-size: 1.4rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    transition: transform 0.15s;
-    animation: cardDeal 0.2s ease-out;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.6rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
 }
 
 .bj-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
 }
 
-@keyframes cardDeal {
-    from { opacity: 0; transform: translateY(-12px); }
-    to   { opacity: 1; transform: translateY(0); }
+.bj-card-black {
+    color: var(--text-primary);
 }
 
-.bj-card-black { color: #e8e8e8; }
-.bj-card-red   { color: #e05533; }
+.bj-card-red {
+    color: #ff4b2b;
+}
 
 .bj-card-hidden {
-    background: repeating-linear-gradient(
-        45deg,
-        #1a1a1a,
-        #1a1a1a 6px,
-        #222 6px,
-        #222 12px
-    );
-    color: #555;
-    font-size: 1.8rem;
-    border-color: #333;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
-.bj-card-rank { font-size: 1.4rem; line-height: 1; }
-.bj-card-suit { font-size: 1.1rem; line-height: 1; }
-
-/* SONUÇ */
 .bj-result {
-    font-size: 1.3rem;
-    font-family: 'Exo 2', sans-serif;
-    font-weight: bold;
-    padding: 14px 32px;
-    border-radius: 8px;
-    animation: fadeIn 0.3s ease-out;
+    font-size: 2rem;
+    font-weight: 800;
+    padding: 20px 50px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to   { opacity: 1; transform: scale(1); }
-}
-
-.bj-result-win, .bj-result-blackjack {
-    background: rgba(194, 84, 25, 0.15);
-    border: 1px solid rgb(194, 84, 25);
-    color: rgb(194, 84, 25);
+.bj-result-win,
+.bj-result-blackjack {
+    background: var(--accent-color);
+    color: #000;
+    box-shadow: 0 0 30px var(--accent-glow);
 }
 
 .bj-result-lose {
-    background: rgba(180, 30, 30, 0.15);
-    border: 1px solid #b41e1e;
-    color: #e05533;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #ef4444;
 }
 
 .bj-result-push {
-    background: rgba(150, 150, 150, 0.1);
-    border: 1px solid #555;
-    color: #aaa;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
 }
 
-/* BAHİS */
 .bj-bet-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .bj-bet-input {
-    padding: 10px 16px;
-    border: 1px solid rgb(194, 84, 25);
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: 'Exo 2', sans-serif;
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #e8e8e8;
+    padding: 15px 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
     text-align: center;
-    width: 200px;
+    width: 250px;
     outline: none;
+    transition: all 0.3s ease;
 }
 
 .bj-bet-input:focus {
-    border-color: rgb(255, 100, 50);
-    box-shadow: 0 0 8px rgba(194, 84, 25, 0.3);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-glow);
 }
 
-.bj-bet-error {
-    color: #e05533;
-    font-size: 0.85rem;
-    font-family: 'Exo 2', sans-serif;
-}
-
-/* BUTONLAR */
 .bj-action-row {
     display: flex;
-    gap: 24px;
+    gap: 20px;
 }
 
 .bj-btn {
-    border: 1px solid rgb(194, 84, 25);
-    background-color: rgb(194, 84, 25);
-    border-radius: 5px;
-    color: #fff;
-    font-size: 18px;
-    padding: 10px 40px;
-    font-family: 'Exo 2', sans-serif;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 12px 45px;
     cursor: pointer;
-    transition: 300ms;
+    transition: all 0.3s ease;
 }
 
 .bj-btn:hover {
-    background-color: rgb(255, 100, 50);
-    border-color: rgb(255, 100, 50);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .bj-btn-stand {
-    background-color: transparent;
-    color: rgb(194, 84, 25);
-}
-
-.bj-btn-stand:hover {
-    background-color: rgba(194, 84, 25, 0.15);
-    border-color: rgb(255, 100, 50);
-    color: rgb(255, 100, 50);
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
 }
 
 .bj-btn-reset {
-    background-color: transparent;
-    border-color: #555;
-    color: #aaa;
-    font-size: 15px;
-    padding: 8px 28px;
-}
-
-.bj-btn-reset:hover {
-    background-color: rgba(255,255,255,0.05);
-    border-color: #888;
-    color: #ccc;
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }

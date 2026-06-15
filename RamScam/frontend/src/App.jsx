@@ -10,6 +10,7 @@ import AiChatWidget from "./components/AiChatWidget"
 import Games from "./pages/Games"
 import Shop from "./pages/Shop"
 import RockPaperScissors from "./pages/RockPaperScissors"
+import WhoWantsToBePessimistic from "./pages/WhoWantsToBePessimistic"
 
 function ProtectedRoute({ children }) {
     const token = localStorage.getItem('token')
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/games/coinflip" element={<ProtectedRoute><CoinFlip /></ProtectedRoute>} />
                     <Route path="/games/blackjack" element={<ProtectedRoute><BlackJack /></ProtectedRoute>} />
                     <Route path="/games/rps" element={<ProtectedRoute><RockPaperScissors /></ProtectedRoute>} />
+                    <Route path="/games/pessimist" element={<ProtectedRoute><WhoWantsToBePessimistic /></ProtectedRoute>} />
                     <Route path="/crash" element={<ProtectedRoute><Crash /></ProtectedRoute>} />
                     <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
                     <Route path="*" element={<Navigate to="/login" replace />} />
