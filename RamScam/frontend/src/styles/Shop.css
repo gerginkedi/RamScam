@@ -1,0 +1,97 @@
+.shop-root {
+    padding: 40px;
+}
+
+.shop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.shop-title {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.shop-balance {
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    padding: 10px 25px;
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.shop-card {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.4s ease;
+}
+
+.shop-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+}
+
+.shop-card-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.shop-card-info h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.shop-card-footer {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.shop-card-btn {
+    width: 100%;
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.shop-card-btn:hover:not(:disabled) {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.shop-card-btn:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}

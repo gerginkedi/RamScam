@@ -1,0 +1,206 @@
+import '../styles/index.css';
+import '../styles/layout.css';
+import { useEffect, useState } from 'react';
+import { useRam } from '../useRam';
+import { useShards } from '../useShards';
+import { useBuffs } from '../useBuffs';
+import { useNavigate } from 'react-router-dom';
+import ArtifactModal from './ArtifactModal';
+
+function RamSetupModal({ onConfirm }) {
+    const [mb, setMb] = useState(512);
+
+    return (
+        <div className='ram-setup-overlay'>
+            <div className='ram-setup-box'>
+                <h2>RAM Tahsisi</h2>
+                <p className='ram-setup-desc'>Oyun oturumu için ayırmak istediğiniz belleği seçin. Seçeceğiniz miktar Chip harcar.</p>
+
+                <div className='ram-setup-preview'>
+                    <span className='mb-text'>
+                        {mb >= 1024 ? (mb / 1024).toFixed(1) + ' GB' : mb + ' MB'}
+                    </span>
+                    <span className='chip-text'>
+                        → {Math.floor(mb * 100 / 1024)} Chip Bedeli
+                    </span>
+                </div>
+
+                <div className='ram-setup-slider-container'>
+                    <input
+                        type='range'
+                        min={256}
+                        max={2048}
+                        step={256}
+                        value={mb}
+                        onChange={e => setMb(parseInt(e.target.value))}
+                        className='ram-setup-slider'
+                    />
+                    <div className='ram-setup-slider-labels'>
+                        <span>256 MB</span>
+                        <span>2048 MB</span>
+                    </div>
+                </div>
+
+                <button className='ram-setup-btn' onClick={() => onConfirm(mb)}>
+                    Tahsis Et & Başla 🚀
+                </button>
+            </div>
+        </div>
+    );
+}
+
+function Layout({ children }) {
+    const { ramBalance, allocatedRam, usedRam, availableRam, allocateRam, selectedArtifact, selectArtifact } = useRam();
+    const { shardBalance } = useShards();
+    const { activeBuffs } = useBuffs();
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+    const [showSetup, setShowSetup] = useState(() => {
+        return !sessionStorage.getItem('ram_setup_done');
+    });
+
+    const [showArtifacts, setShowArtifacts] = useState(false);
+
+    useEffect(() => {
+        if (allocatedRam && ramBalance <= 0) {
+            navigate('/crash');
+        }
+    }, [ramBalance, allocatedRam, navigate]);
+
+    const handleConfirm = (mb) => {
+        allocateRam(mb);
+        sessionStorage.setItem('ram_setup_done', 'true');
+        setShowSetup(false);
+        setShowArtifacts(true);
+    };
+
+    const handleArtifactSelect = (artifact) => {
+        selectArtifact(artifact);
+        setShowArtifacts(false);
+    };
+
+    const formatRam = (mb) => {
+        if (mb === null || mb === undefined) return '—';
+        if (mb >= 1024) return (mb / 1024).toFixed(1) + ' GB';
+        return Math.round(mb) + ' MB';
+    };
+
+    const [brightness, setBrightness] = useState(100);
+
+    useEffect(() => {
+        const handleBrightnessChange = (e) => {
+            setBrightness(e.detail.brightness);
+        };
+        window.addEventListener('pessimistBrightness', handleBrightnessChange);
+        return () => window.removeEventListener('pessimistBrightness', handleBrightnessChange);
+    }, []);
+
+    const activeBuffList = Object.values(activeBuffs);
+
+    return (
+        <div>
+            {showSetup && <RamSetupModal onConfirm={handleConfirm} />}
+            {showArtifacts && <ArtifactModal onSelect={handleArtifactSelect} />}
+
+            <div className='top-bar'>
+                <div className="home-btn">
+                    <button><a href="/home">RamScam</a></button>
+                    <span>Version 0.1.1</span>
+                </div>
+
+                <div className="balance-display">
+                    {selectedArtifact && (
+                        <div className='artifact-indicator' title={selectedArtifact.description}>
+                            <span className='artifact-icon'>💎</span>
+                            <span className='artifact-name'>{selectedArtifact.name}</span>
+                        </div>
+                    )}
+                    <h2>Chip: {ramBalance} ◈</h2>
+                    <h2 className='shard-display'>Shard: {shardBalance} ⟡</h2>
+
+                    {window.location.pathname.includes('pessimist') && (
+                        <h2 className='brightness-display' style={{ color: brightness < 40 ? '#ff4444' : 'var(--accent-color)' }}>
+                            Parlaklık: %{brightness} 🔆
+                        </h2>
+                    )}
+
+                    {allocatedRam && (
+                        <h2 className='hafiza-display'>
+                            Hafıza: <span className='hafiza-used'>{formatRam(availableRam)}</span> / {formatRam(allocatedRam)}
+                        </h2>
+                    )}
+
+                    {activeBuffList.length > 0 && (
+                        <div className='active-buffs'>
+                            {activeBuffList.map(buff => (
+                                <div key={buff.id} className='active-buff-icon' title={`${buff.name} — ${buff.remainingUses} ${buff.maxUses === 1 ? 'kullanım' : 'el'} kaldı`}>
+                                    <span>{buff.icon}</span>
+                                    <span className='active-buff-uses'>{buff.remainingUses}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                <div className='auth-container'>
+                    {!token ? (
+                        <>
+                            <div className="login-btn">
+                                <a href="/login">Giriş Yap</a>
+                            </div>
+                            <div className='register-btn'>
+                                <a href="/register">Kaydol</a>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="logout-btn">
+                            <button onClick={() => {
+                                localStorage.removeItem('token');
+                                window.location.href = '/login';
+                            }}>
+                                Çıkış Yap
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <div className='layout'>
+                <div className="left-bar">
+                    <div className='left-bar-content'>
+                        <div className="btn-group">
+                            <a href>Popüler Oyunlar</a>
+                            <a href>Yeni Oyunlar</a>
+                            <a href>En Son Oynanlar</a>
+                            <a href="/games">Oyunlar</a>
+                        </div>
+                        <hr className="divider" />
+                        <div className='quick-access'>
+                            <a href="/games/coinflip">Coin Flip</a>
+                            <a href="/games/blackjack">Blackjack</a>
+                            <a href="/games/pessimist">Kim Karamsar Olmak İster?</a>
+                            <a href>Rulet</a>
+                            <a href>Mayın Tarlası</a>
+                            <a href="/games/rps">Taş Kağıt Makas</a>
+                        </div>
+                        <br /><br />
+                        <hr className="divider" />
+                        <div className='other-links'>
+                            <a href>İstatistikler</a>
+                            <a href="/shop">Mağaza</a>
+                            <a href>Cansız Destek</a>
+                            <a href>Ayarlar</a>
+                        </div>
+                    </div>
+                </div>
+                <div className="main-content">
+                    {children}
+                </div>
+                <div className="right-bar"></div>
+            </div>
+        </div>
+    );
+}
+
+export default Layout;

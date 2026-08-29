@@ -1,0 +1,126 @@
+.artifact-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 6, 10, 0.95);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.artifact-modal {
+    width: 90%;
+    max-width: 1000px;
+    text-align: center;
+    animation: modalFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.artifact-header h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    text-transform: capitalize;
+    letter-spacing: -2px;
+    text-shadow: 0 0 30px var(--accent-glow);
+}
+
+.artifact-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    font-weight: 300;
+}
+
+.artifact-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.artifact-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 50px 30px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.artifact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.artifact-card:hover {
+    transform: translateY(-15px);
+    border-color: var(--accent-color);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+    background: rgba(25, 32, 45, 0.9);
+}
+
+.artifact-card:hover::before {
+    opacity: 1;
+}
+
+.artifact-icon-box {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+    transition: transform 0.3s ease;
+}
+
+.artifact-card:hover .artifact-icon-box {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.artifact-card h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.artifact-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.artifact-select-hint {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    letter-spacing: 2px;
+    opacity: 0.5;
+}
+
+.artifact-card:hover .artifact-select-hint {
+    opacity: 1;
+}

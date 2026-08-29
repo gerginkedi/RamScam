@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="RamScam/RamScam.csproj" />
+  <Project Path="RamScam.csproj" />
   <Project Path="Test/Test.csproj" />
 </Solution>

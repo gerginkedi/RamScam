@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+.crash-root {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 20px;
+    font-family: var(--font-main);
+}
+
+.crash-terminal {
+    width: 100%;
+    max-width: 800px;
+    background: var(--panel-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.crash-terminal-bar {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.crash-terminal-body {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.crash-log-line {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.log-normal {
+    color: var(--text-secondary);
+}
+
+.log-warn {
+    color: var(--accent-color);
+}
+
+.log-error {
+    color: #ff4b2b;
+}
+
+.log-fatal {
+    color: #ff0000;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.crash-cursor {
+    color: var(--accent-color);
+    font-family: 'Share Tech Mono', monospace;
+    animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.crash-restart-btn {
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 40px;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.crash-restart-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
